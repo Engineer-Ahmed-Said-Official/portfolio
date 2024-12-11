@@ -1,0 +1,136 @@
+/* Classification Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #36454F; /* Dark background color */
+    color: white; /* White text color */
+    padding: 20px; /* Padding around the header */
+    display: flex;
+    justify-content: space-between; /* Align items to space out */
+    align-items: center; /* Center items vertically */
+    position: sticky; /* Make the header sticky when scrolling */
+    top: 0; /* Position at the top of the page */
+    z-index: 1000; /* Ensure it stays above other elements */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+header nav ul {
+    list-style: none; /* Remove bullet points */
+    display: flex; /* Arrange items horizontally */
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+header nav ul li a.active {
+    font-weight: bold;
+}
+
+/* Main Container for Classification Page */
+main {
+    padding: 20px;
+}
+
+.classification-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.classification-container h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.classification-container p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    text-align: center;
+}
+
+.classification-item {
+    margin-bottom: 40px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.classification-item h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.classification-item p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.pdf-viewer {
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.pdf-viewer iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+}
+
+.classification-item .note {
+    font-style: italic;
+    color: #888;
+}
+
+/* Footer Style */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #36454F;
+    color: white;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .classification-container {
+        padding: 15px;
+    }
+
+    .classification-item h2 {
+        font-size: 24px;
+    }
+
+    .pdf-viewer iframe {
+        height: 400px;
+    }
+}

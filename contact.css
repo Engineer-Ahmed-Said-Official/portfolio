@@ -1,0 +1,121 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Main Header */
+.main-header {
+    background-color: #36454F; /* Dark background color */
+    color: white; /* White text color */
+    padding: 20px; /* Padding around the header */
+    display: flex;
+    justify-content: space-between; /* Align items to space out */
+    align-items: center; /* Center items vertically */
+    position: sticky; /* Make the header sticky when scrolling */
+    top: 0; /* Position at the top of the page */
+    z-index: 1000; /* Ensure it stays above other elements */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Navigation Menu */
+.main-header nav ul {
+    list-style: none; /* Remove bullet points */
+    display: flex; /* Arrange items horizontally */
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+}
+
+.main-header nav ul li {
+    margin: 0 15px; /* Space between items */
+}
+
+.main-header nav ul li a {
+    color: white; /* White text for links */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold; /* Make the text bold */
+    transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+.main-header nav ul li a:hover {
+    color: #ff5733; /* Highlight color on hover */
+}
+
+/* Logo */
+.main-header .logo {
+    font-size: 24px; /* Larger font size for the logo */
+    font-weight: bold; /* Bold font */
+    color: #ff5733; /* Highlight color for the logo */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Contact Page Styles */
+.contact-section {
+    padding: 50px;
+    text-align: center;
+}
+
+.contact-section h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-section p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
