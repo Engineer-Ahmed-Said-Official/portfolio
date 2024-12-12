@@ -1,6 +1,9 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background:#f4f4f9;
+    color: #333;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -30,13 +33,14 @@ body {
 }
 
 .main-header nav ul li {
-    margin: 0 15px; /* Space between items */
+    display: inline;
+    margin-right: 20px;
 }
 
 .main-header nav ul li a {
     color: white; /* White text for links */
     text-decoration: none; /* Remove underline */
-    font-size: 16px; /* Adjust font size */
+    font-size: 18px; /* Adjust font size */
     font-weight: bold; /* Make the text bold */
     transition: color 0.3s ease; /* Smooth transition on hover */
 }
@@ -55,12 +59,18 @@ body {
 
 /* Contact Page Styles */
 .contact-section {
-    padding: 50px;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     text-align: center;
 }
 
 .contact-section h1 {
-    color: #333;
+    text-align: center;
+    color: #444;
     margin-bottom: 20px;
 }
 
@@ -68,9 +78,12 @@ body {
     font-size: 16px;
     color: #666;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 form {
+    display: flex;
+    flex-direction: column;
     max-width: 500px;
     margin: 0 auto;
     text-align: left;
@@ -90,22 +103,25 @@ label {
 input, textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 textarea {
-    resize: vertical;
+    resize: none;
+    height: 150px;
 }
 
 button {
-    background-color: #007bff;
+    background-color: #36454F;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s;
 }
 
 button:hover {

@@ -29,13 +29,14 @@ body {
 }
 
 .main-header nav ul li {
-    margin: 0 15px; /* Space between items */
+    display: inline;
+    margin-right: 20px;
 }
 
 .main-header nav ul li a {
     color: white; /* White text for links */
     text-decoration: none; /* Remove underline */
-    font-size: 16px; /* Adjust font size */
+    font-size: 18px; /* Adjust font size */
     font-weight: bold; /* Make the text bold */
     transition: color 0.3s ease; /* Smooth transition on hover */
 }

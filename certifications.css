@@ -35,10 +35,19 @@ header nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
+    font-weight: bold; /* Make the text bold */
+    transition: color 0.3s ease; /* Smooth transition on hover */
 }
 
-header nav ul li a.active {
-    font-weight: bold;
+header nav ul li a:hover {
+    color: #ff5733; /* Highlight color on hover */
+}
+
+header .logo {
+    font-size: 24px; /* Larger font size for the logo */
+    font-weight: bold; /* Bold font */
+    color: #ff5733; /* Highlight color for the logo */
+    text-decoration: none; /* Remove underline */
 }
 
 /* Main Container for Classification Page */

@@ -11,6 +11,9 @@ body {
     background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    font-family: Arial,sans-serif;
 }
 
 /* Hero Section */
@@ -253,22 +256,25 @@ footer {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
+
 /* Navigation Menu */
 .main-header nav ul {
     list-style: none; /* Remove bullet points */
     display: flex; /* Arrange items horizontally */
     margin: 0; /* Reset default margin */
     padding: 0; /* Reset default padding */
+
 }
 
 .main-header nav ul li {
-    margin: 0 15px; /* Space between items */
+    display: inline;
+    margin-right: 20px;
 }
 
 .main-header nav ul li a {
     color: white; /* White text for links */
     text-decoration: none; /* Remove underline */
-    font-size: 16px; /* Adjust font size */
+    font-size: 18px; /* Adjust font size */
     font-weight: bold; /* Make the text bold */
     transition: color 0.3s ease; /* Smooth transition on hover */
 }
