@@ -59,26 +59,42 @@ body {
 
 /* Contact Page Styles */
 .contact-section {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     text-align: center;
+    padding: 30px;
+    background-color: #f9f9f9; /* Subtle background for contrast */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: 'Arial', sans-serif;
+    color: #333;
 }
 
-.contact-section h1 {
-    text-align: center;
+.contact-section h2 {
+    font-size: 2em;
+    font-weight: bold;
     color: #444;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
 }
 
 .contact-section p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 30px;
-    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin: 0;
+}
+.contact-section a {
+    color: #007BFF; /* Professional blue link */
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease-in-out;
+}
+.contact-section a:hover {
+    color: #0056b3; /* Slightly darker blue */
+    border-bottom: 1px solid #0056b3;
 }
 
 form {
