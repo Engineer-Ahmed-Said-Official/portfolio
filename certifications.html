@@ -1,68 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certifications Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="certifications.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.png" type="image/png">
 </head>
-
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="certifications.html">Certifications</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="classification-container">
-            <h1>My Certifications</h1>
-            <p>Here are my certifications.</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Ahmed Said Bashir</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-            <!-- Classification Information -->
-            <div class="classification-item">
-                <h2>Python & AI Course</h2>
-                
-                <!-- Link to PDF (without allowing direct download) -->
-                <a href="Python_AI_Course.pdf" target="_blank">View PDF</a>
-            </div>
+    <main class="container my-5">
+        <h1 class="text-center">My Certifications</h1>
+        <p class="text-center">Here are my certifications.</p>
 
-            <!-- More classifications -->
-            <div class="classification-item">
-                <h2>Alexandria Shipyard Co. Training</h2>
-                <a href="Alexandria_Shipyard_Training.pdf" target="_blank">View PDF</a>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h2 class="card-title">Python & AI Course</h2>
+                        <a href="Python_AI_Course.pdf" class="btn btn-primary" target="_blank">View PDF</a>
+                    </div>
+                </div>
             </div>
-            <div class="classification-item">
-                <h2>Robotics Course</h2>
-                <a href="robotics_course.pdf" target="_blank">View PDF</a>
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h2 class="card-title">Alexandria Shipyard Co. Training</h2>
+                        <a href="Alexandria_Shipyard_Training.pdf" class="btn btn-primary" target="_blank">View PDF</a>
+                    </div>
+                </div>
             </div>
-            <div class="classification-item">
-                <h2>West Delta Electricity Production Co. Training</h2>
-                <a href="west_delta_electricity_training.pdf" target="_blank">View PDF</a>
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h2 class="card-title">Robotics Course</h2>
+                        <a href="robotics_course.pdf" class="btn btn-primary" target="_blank">View PDF</a>
+                    </div>
+                </div>
             </div>
-            <div class="classification-item">
-                <h2>Python and Machine Learning Course</h2>
-                <a href="python_and_machine_learning.pdf" target="_blank">View PDF</a>
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h2 class="card-title">West Delta Electricity Production Co. Training</h2>
+                        <a href="west_delta_electricity_training.pdf" class="btn btn-primary" target="_blank">View PDF</a>
+                    </div>
+                </div>
             </div>
-            <div class="classification-item">
-                <h2>Soft Skills</h2>
-                <a href="soft_skills.pdf" target="_blank">View PDF</a>
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h2 class="card-title">Python and Machine Learning Course</h2>
+                        <a href="python_and_machine_learning.pdf" class="btn btn-primary" target="_blank">View PDF</a>
+                    </div>
+                </div>
             </div>
-        </section>
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h2 class="card-title">Soft Skills</h2>
+                        <a href="soft_skills.pdf" class="btn btn-primary" target="_blank">View PDF</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer>
+    <footer class="bg-dark text-white text-center py-3">
         <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
     </footer>
 
-    <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

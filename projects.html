@@ -3,43 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Projects</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="projects.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
-    <header class="main-header">
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="certifications.html">Certifications</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Ahmed Said Bashir</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <section class="projects-section">
-        <h1>My Projects</h1>
-        <div class="projects-container">
-            <div class="project-card">
-                <h3>Face Detection System</h3>
-                <p>A Java-based project using AI for facial recognition.</p>
-                <a href="https://github.com/Engineer-Ahmed-Said-Official/Face-Detection-System.git" target="_blank">View on GitHub</a>
+    <section class="container my-5">
+        <h1 class="text-center">My Projects</h1>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h3 class="card-title">Face Detection System</h3>
+                        <p class="card-text">A Java-based project using AI for facial recognition.</p>
+                        <a href="https://github.com/Engineer-Ahmed-Said-Official/Face-Detection-System.git" class="btn btn-primary" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
             </div>
-            <div class="project-card">
-                <h3>Fire Detection APP</h3>
-                <p>A Python-based project using AI for fire recognition from images,videos and realtime detection.</p>
-                <a href="https://github.com/Engineer-Ahmed-Said-Official/Fire-Detection-APP.git" target="_blank">View on GitHub</a>
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h3 class="card-title">Fire Detection APP</h3>
+                        <p class="card-text">A Python-based project using AI for fire recognition from images, videos, and real-time detection.</p>
+                        <a href="https://github.com/Engineer-Ahmed-Said-Official/Fire-Detection-APP.git" class="btn btn-primary" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
             </div>
-            <!-- Add more project cards as needed -->
         </div>
     </section>
 
-    <footer>
+    <footer class="bg-dark text-white text-center py-3">
         <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
