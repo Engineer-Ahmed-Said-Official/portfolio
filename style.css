@@ -937,8 +937,7 @@ main {
 
     .timeline-item {
         width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
+        padding: 10px 25px 10px 70px; /* Adjusted padding for single column */
     }
 
     .timeline-item:nth-child(even) {
@@ -947,6 +946,7 @@ main {
 
     .timeline-dot {
         left: 23px;
+        right: auto; /* Ensure dot is on the left */
     }
 
     .timeline-item:nth-child(even) .timeline-dot {

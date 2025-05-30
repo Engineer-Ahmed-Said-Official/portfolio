@@ -15,17 +15,25 @@ function initThemeToggle() {
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+    if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark-theme');
+    } else {
+        document.documentElement.classList.remove('dark-theme');
+    }
     updateThemeIcon(savedTheme === 'dark');
 
     themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
+        const isDark = document.documentElement.classList.contains('dark-theme');
+        const newTheme = isDark ? 'light' : 'dark';
+
         // Update theme
-        document.documentElement.setAttribute('data-bs-theme', newTheme);
+        if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark-theme');
+        } else {
+            document.documentElement.classList.remove('dark-theme');
+        }
         localStorage.setItem('theme', newTheme);
-        
+
         // Update icon
         updateThemeIcon(newTheme === 'dark');
 
