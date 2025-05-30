@@ -161,12 +161,22 @@ footer {
     transition: all 0.3s ease;
 }
 
+.email-container {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.email-container p {
+    margin-bottom: 0.5rem;
+}
+
 .contact-info a {
     color: var(--text-light);
     text-decoration: none;
     border-bottom: 2px solid transparent;
     font-weight: 600;
-    word-break: break-word;
+    word-break: break-all;
+    max-width: 100%;
 }
 
 .contact-info a:hover {
@@ -191,10 +201,15 @@ footer {
 @media (max-width: 768px) {
     .contact-info {
         padding: 1.5rem !important;
+        margin: 0 10px;
     }
 
-    .contact-info p {
+    .email-container p {
         font-size: 0.95rem;
+    }
+
+    .email-container a {
+        font-size: 0.9rem;
     }
 
     .btn-success {
