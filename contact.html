@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Me</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="contact.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">Ahmed Said Bashir</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -26,28 +29,41 @@
         </div>
     </nav>
 
-    <section class="container my-5 text-center">
-        <h2>Contact Me</h2>
-        <p class="bg-primary text-white p-2 rounded">Feel free to reach out via email at 
-            <a href="mailto:ahmedsaid.official999@gmail.com" class="text-white fw-bold">ahmedsaid.official999@gmail.com</a>
-        </p>
-        <button class="btn btn-success" onclick="openGmail()">Hire Me</button>
-    </section>
+    <main>
+        <section class="container my-5 text-center">
+            <h2 class="mb-4">Contact Me</h2>
+            <div class="contact-info bg-primary text-white p-4 rounded-3 mb-4">
+                <p class="mb-3">Feel free to reach out via email at 
+                    <a href="mailto:ahmedsaid.official999@gmail.com" class="text-white fw-bold">ahmedsaid.official999@gmail.com</a>
+                </p>
+                <button class="btn btn-success btn-lg" onclick="openGmail()">
+                    <i class="fas fa-envelope me-2"></i>Hire Me
+                </button>
+            </div>
+        </section>
+    </main>
 
-    <footer class="bg-dark text-white text-center py-3">
+    <footer>
         <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="navbar.js"></script>
+    <script src="common.js"></script>
     <script>
         function openGmail() {
-            window.open(
-                "https://mail.google.com/mail/?view=cm&fs=1&to=ahmedsaid.official999@gmail.com&su=Job%20Opportunity&body=Hello%20Ahmed,",
-                "_blank"
-            );
+            const email = 'ahmedsaid.official999@gmail.com';
+            const subject = 'Job Opportunity';
+            const body = `Hello Ahmed,
+
+I came across your portfolio and I'm interested in discussing a potential opportunity with you.
+
+Best regards,`;
+            
+            const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            window.open(mailtoLink, '_blank');
         }
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>

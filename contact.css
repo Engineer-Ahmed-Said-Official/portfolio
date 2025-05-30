@@ -1,14 +1,13 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background:#f4f4f9;
+    background: #f8f9fa;
     color: #333;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 
 /* Main Header */
 .main-header {
@@ -61,20 +60,19 @@ body {
 .contact-section {
     text-align: center;
     padding: 30px;
-    background-color: #f9f9f9; /* Subtle background for contrast */
+    background-color: var(--bg-light);
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: 20px auto;
-    font-family: 'Arial', sans-serif;
-    color: #333;
+    color: var(--text-dark);
 }
 
 .contact-section h2 {
     font-size: 2em;
     font-weight: bold;
-    color: #444;
+    color: var(--text-dark);
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 1.2px;
@@ -85,16 +83,18 @@ body {
     line-height: 1.6;
     margin: 0;
 }
+
 .contact-section a {
-    color: #007BFF; /* Professional blue link */
+    color: var(--accent-color);
     text-decoration: none;
     font-weight: bold;
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease-in-out;
 }
+
 .contact-section a:hover {
-    color: #0056b3; /* Slightly darker blue */
-    border-bottom: 1px solid #0056b3;
+    color: var(--accent-hover);
+    border-bottom: 1px solid var(--accent-hover);
 }
 
 form {
@@ -150,4 +150,72 @@ footer {
     padding: 20px;
     background-color: #36454F;
     color: white;
+}
+
+/* Contact Info Styles */
+.contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--gradient-primary);
+}
+
+.contact-info a {
+    color: var(--text-light);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    font-weight: 600;
+}
+
+.contact-info a:hover {
+    border-bottom-color: var(--text-light);
+    opacity: 0.9;
+}
+
+.btn-success {
+    background: var(--gradient-accent);
+    padding: 12px 30px;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+/* Scroll Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-accent);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, var(--accent-hover), var(--accent-color));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-info {
+        padding: 20px !important;
+        margin: 0 15px;
+    }
+    
+    .btn-success {
+        padding: 10px 20px;
+    }
 }
