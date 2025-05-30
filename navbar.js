@@ -61,32 +61,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu animations
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('.navbar-collapse');
-    
-    navbarToggler.addEventListener('click', function() {
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        
-        if (!isExpanded) {
-            // Opening animation
-            navbarCollapse.style.display = 'block';
-            setTimeout(() => {
-                navbarCollapse.classList.add('show');
-            }, 10);
-        } else {
-            // Closing animation
-            navbarCollapse.classList.remove('show');
-            setTimeout(() => {
-                navbarCollapse.style.display = 'none';
-            }, 400);
+    let isAnimating = false;
+
+    // Function to handle menu toggle
+    function toggleMenu() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        navbarToggler.classList.toggle('collapsed');
+        navbarCollapse.classList.toggle('show');
+
+        // Reset animation flag after transition
+        setTimeout(() => {
+            isAnimating = false;
+        }, 300);
+    }
+
+    // Event listener for menu button
+    navbarToggler.addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleMenu();
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navbarCollapse.contains(e.target) && !navbarToggler.contains(e.target)) {
+            if (navbarCollapse.classList.contains('show')) {
+                toggleMenu();
+            }
         }
     });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        const isClickInside = navbar.contains(e.target);
-        const isMenuOpen = navbarCollapse.classList.contains('show');
-        
-        if (!isClickInside && isMenuOpen) {
-            navbarToggler.click();
+    // Close menu when clicking on a nav link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (navbarCollapse.classList.contains('show')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 991 && navbarCollapse.classList.contains('show')) {
+            navbarCollapse.classList.remove('show');
+            navbarToggler.classList.add('collapsed');
         }
     });
 
