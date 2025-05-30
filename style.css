@@ -15,7 +15,42 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    width: 100%;
+    position: relative;
     padding-top: 76px; /* Match navbar height */
+}
+
+/* Container Styles */
+.container {
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
 }
 
 /* Hero Section */
@@ -29,6 +64,7 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .hero::before {
@@ -52,6 +88,7 @@ body {
     max-width: 800px;
     padding: 2rem;
     animation: fadeInUp 1s ease-out;
+    width: 100%;
 }
 
 @keyframes fadeInUp {
@@ -144,6 +181,7 @@ body {
     padding: 0 20px;
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .skill-item {
@@ -187,6 +225,7 @@ body {
     padding: 80px 50px;
     background-color: var(--bg-light);
     margin-top: 50px;
+    width: 100%;
 }
 
 .project h2 {
@@ -231,6 +270,7 @@ body {
     background-color: #fff;
     text-align: center;
     margin-top: 50px;
+    width: 100%;
 }
 
 .contact h2 {
@@ -406,20 +446,28 @@ footer::before {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
     .hero h1 {
         font-size: 2.5rem;
+        padding: 0 15px;
     }
     
     .hero p {
         font-size: 1.1rem;
+        padding: 0 15px;
     }
     
     .skills-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        padding: 0 15px;
     }
     
     .project, .contact {
-        padding: 50px 20px;
+        padding: 50px 15px;
     }
 
     .skill-item {
