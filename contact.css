@@ -150,13 +150,15 @@ footer {
     padding: 20px;
     background-color: #36454F;
     color: white;
+    margin-top: auto;
 }
 
 /* Contact Info Styles */
 .contact-info {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     background: var(--gradient-primary);
+    transition: all 0.3s ease;
 }
 
 .contact-info a {
@@ -164,6 +166,7 @@ footer {
     text-decoration: none;
     border-bottom: 2px solid transparent;
     font-weight: 600;
+    word-break: break-word;
 }
 
 .contact-info a:hover {
@@ -176,6 +179,32 @@ footer {
     padding: 12px 30px;
     font-weight: 500;
     margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .contact-info {
+        padding: 1.5rem !important;
+    }
+
+    .contact-info p {
+        font-size: 0.95rem;
+    }
+
+    .btn-success {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
 }
 
 /* Scroll Animations */
@@ -200,22 +229,10 @@ footer {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--gradient-accent);
+    background: #888;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, var(--accent-hover), var(--accent-color));
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .contact-info {
-        padding: 20px !important;
-        margin: 0 15px;
-    }
-    
-    .btn-success {
-        padding: 10px 20px;
-    }
+    background: #555;
 }
