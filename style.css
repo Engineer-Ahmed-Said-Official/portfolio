@@ -575,6 +575,13 @@ footer::before {
         padding: 0.8rem 1rem !important;
         margin: 0.3rem 0;
     }
+
+    .theme-toggle {
+        margin-left: 0; /* Remove left margin in mobile menu */
+        margin-top: 10px; /* Add some space above the button */
+        z-index: 1001; /* Ensure it's above other content */
+        background-color: rgba(0, 255, 0, 0.3); /* Temporary background for visibility */
+    }
 }
 
 /* Fix for scroll spacing */
@@ -791,6 +798,7 @@ main {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    margin-left: 10px;
 }
 
 .theme-toggle:hover {
