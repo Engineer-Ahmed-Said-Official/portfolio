@@ -8,6 +8,45 @@ document.querySelectorAll('iframe').forEach(iframe => {
 // Track if animation is in progress
 let isAnimating = false;
 
+// Theme Toggle Functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+    updateThemeIcon(savedTheme === 'dark');
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        // Update theme
+        document.documentElement.setAttribute('data-bs-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update icon
+        updateThemeIcon(newTheme === 'dark');
+
+        // Force a reflow to ensure the theme change is applied
+        document.body.style.display = 'none';
+        document.body.offsetHeight; // Force reflow
+        document.body.style.display = '';
+    });
+}
+
+function updateThemeIcon(isDark) {
+    const icon = document.querySelector('#themeToggle i');
+    if (isDark) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+    }
+}
+
 // Function to handle Learn More About Me section
 function handleLearnMoreSection() {
     const learnMoreBtn = document.getElementById('learnMoreBtn');
@@ -69,25 +108,49 @@ function handleOtherAnchorLinks() {
     });
 }
 
-// Initialize everything when DOM is loaded
+// Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle Learn More About Me section separately
     handleLearnMoreSection();
+    initThemeToggle();
     
-    // Handle other anchor links
-    handleOtherAnchorLinks();
+    // Add scroll event listener for fade-in animations
+    window.addEventListener('scroll', function() {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.classList.add('visible');
+            }
+        });
+    });
 });
 
-// Add scroll event listener for fade-in animations
-window.addEventListener('scroll', function() {
-    const fadeElements = document.querySelectorAll('.fade-in');
-    fadeElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('visible');
-        }
+/* Project Filtering */
+document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filter = button.getAttribute('data-filter');
+
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to the clicked button
+            button.classList.add('active');
+
+            projectCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+
+                if (filter === 'all' || cardCategory === filter) {
+                    card.style.display = 'block'; // Or your preferred display type (e.g., flex, grid)
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     });
 });
 

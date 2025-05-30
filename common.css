@@ -1,3 +1,221 @@
+/* Common Theme Variables */
+:root {
+    --primary-color: #007bff;
+    --text-color: #333;
+    --bg-color: #f5f5f5;
+    --card-bg: #ffffff;
+    --border-color: #dee2e6;
+    --gradient-primary: linear-gradient(135deg, #007bff 0%, #00bcd4 100%);
+    --gradient-accent: linear-gradient(45deg, #ff5733, #ff8c33);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --progress-bg: rgba(0, 0, 0, 0.1);
+    --skill-icon-color: #007bff;
+}
+
+/* Dark Theme Variables */
+[data-bs-theme="dark"] {
+    --primary-color: #0d6efd;
+    --text-color: #ffffff;
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --border-color: #404040;
+    --gradient-primary: linear-gradient(135deg, #0d6efd 0%, #00bcd4 100%);
+    --gradient-accent: linear-gradient(45deg, #ff8c33, #ff5733);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.4);
+    --progress-bg: rgba(255, 255, 255, 0.1);
+    --skill-icon-color: #0d6efd;
+}
+
+[data-bs-theme="dark"] .skill-item {
+    background-color: var(--card-bg);
+}
+
+/* Common Theme Styles */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 76px;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    height: 76px;
+    box-sizing: border-box;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.navbar-dark .navbar-brand {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Card and Section Styles */
+.card, .timeline-content, .skill-item, section {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Form Elements */
+input, textarea, select {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Buttons */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background-color: transparent;
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Footer */
+footer {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--gradient-accent);
+}
+
+/* Progress Bars */
+.progress {
+    background-color: var(--progress-bg);
+    transition: background-color 0.3s ease;
+}
+
+.progress-bar {
+    background: var(--gradient-primary);
+    transition: background 0.3s ease;
+}
+
+/* Timeline */
+.timeline::before {
+    background-color: var(--primary-color);
+}
+
+.timeline-dot {
+    background-color: var(--primary-color);
+}
+
+/* Skills Section */
+.skill-item {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.skill-item i {
+    color: var(--skill-icon-color);
+    transition: color 0.3s ease;
+}
+
+.skill-item p {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.skill-category h4 {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.skill-progress-item span {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Skills Visualization */
+.skills-details {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.skill-items .skill-item {
+    background-color: transparent;
+    border: none;
+}
+
+.skill-items .skill-item i {
+    color: var(--skill-icon-color);
+}
+
+.skill-items .skill-item span {
+    color: var(--text-color);
+}
+
+/* Hero Section */
+.hero {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+/* Animations */
+.fade-in {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-accent);
+}
+
 /* Common Styles */
 :root {
     /* Primary Colors */
@@ -23,7 +241,6 @@
     
     /* Shadow Colors */
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 20px 25px rgba(0, 0, 0, 0.15);
 }
