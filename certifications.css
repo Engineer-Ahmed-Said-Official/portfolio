@@ -65,22 +65,18 @@
     }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar for Webkit browsers */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px; /* Corresponds to 'thin' */
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #f1f1f1; /* Corresponds to the track color in scrollbar-color */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(45deg, #ff5733, #ff8c33);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #ff8c33, #ff5733);
+    background: #ff5733; /* Corresponds to the thumb color in scrollbar-color */
+    border-radius: 5px; /* Optional, but common with custom scrollbars */
 }
 
 /* Smooth Scrolling */
