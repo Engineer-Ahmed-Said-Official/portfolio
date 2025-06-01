@@ -19,7 +19,21 @@ const codeExamples = {
 <body>
     <h1>Hello, World!</h1>
 </body>
-</html>`
+</html>`,
+
+    css: `/* Hello World in CSS */
+.hello-world {
+    color: #00ff00;
+    font-size: 24px;
+    text-align: center;
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #00ff00; }
+    50% { text-shadow: 0 0 20px #00ff00; }
+    100% { text-shadow: 0 0 5px #00ff00; }
+}`
 };
 
 // Wait for DOM to be fully loaded
