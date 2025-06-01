@@ -1343,6 +1343,7 @@ body {
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
+    max-height: 80vh;
     box-shadow: 
         0 0 30px rgba(0, 255, 255, 0.3),
         0 0 60px rgba(0, 0, 0, 0.5);
@@ -1353,6 +1354,8 @@ body {
     border: 1px solid rgba(0, 255, 255, 0.2);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
 }
 
 .code-window.active {
@@ -1369,6 +1372,7 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    flex-shrink: 0;
 }
 
 .code-window-title {
@@ -1401,8 +1405,9 @@ body {
 
 .code-window-content {
     padding: 20px;
-    max-height: 70vh;
     overflow-y: auto;
+    flex-grow: 1;
+    -webkit-overflow-scrolling: touch;
 }
 
 .code-block {
@@ -1414,7 +1419,9 @@ body {
     line-height: 1.5;
     color: #d4d4d4;
     position: relative;
-    overflow: hidden;
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
 }
 
 .code-block::before {
@@ -1510,12 +1517,37 @@ body {
 @media (max-width: 768px) {
     .code-window {
         width: 95%;
-        max-height: 80vh;
+        max-height: 90vh;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
     }
-    
+
+    .code-window.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .code-window-content {
+        padding: 15px;
+    }
+
     .code-block {
         font-size: 0.8rem;
         padding: 15px;
+    }
+
+    .code-window-header {
+        padding: 12px 15px;
+    }
+}
+
+/* Fix for iOS devices */
+@supports (-webkit-touch-callout: none) {
+    .code-window {
+        max-height: 85vh;
+    }
+    
+    .code-window-content {
+        -webkit-overflow-scrolling: touch;
     }
 }
 
