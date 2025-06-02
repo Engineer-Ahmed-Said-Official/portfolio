@@ -129,7 +129,7 @@ body {
 
 @media (max-width: 768px) {
     .hero-flex {
-        flex-direction: column;
+        flex-direction: column-reverse;
         text-align: center;
     }
 
@@ -148,6 +148,7 @@ body {
     .profile-image {
         width: 250px;
         height: 250px;
+        margin-bottom: 2rem; /* Add margin below the image */
     }
 }
 
