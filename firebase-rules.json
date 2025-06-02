@@ -1,0 +1,26 @@
+{
+  "rules": {
+    "reviews": {
+      ".read": true,
+      ".write": true,
+      "$review": {
+        ".validate": "newData.hasChildren(['name', 'company', 'rating', 'comment', 'timestamp'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "company": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "rating": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5"
+        },
+        "comment": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "timestamp": {
+          ".validate": "newData.isNumber()"
+        }
+      }
+    }
+  }
+} 

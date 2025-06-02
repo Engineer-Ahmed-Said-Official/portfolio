@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - Ahmed Said Bashir</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Ahmed Said Bashir</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="reviews.html">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light theme-toggle" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="Ahmed_Said_Bashir_CV.pdf" target="_blank">Download CV</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Reviews Header -->
+    <section class="container mt-5 pt-5 fade-in">
+        <h1 class="text-center mb-5">Client Reviews</h1>
+
+        <!-- Rating Form -->
+        <div class="rating-form-container mb-5">
+            <h3>Leave a Review</h3>
+            <form id="reviewForm" class="rating-form">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="company" class="form-label">Company/Position</label>
+                    <input type="text" class="form-control" id="company" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Rating</label>
+                    <div class="star-rating">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Your Review</label>
+                    <textarea class="form-control" id="comment" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        </div>
+
+        <!-- Reviews List -->
+        <div class="reviews-list" id="reviewsList">
+            <!-- Reviews will be loaded here dynamically -->
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGJy-QhZVVGRDSyNCL3Q0dJ38BYIYGCE8",
+            authDomain: "portfolio-reviews-61da7.firebaseapp.com",
+            databaseURL: "https://portfolio-reviews-61da7-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "portfolio-reviews-61da7",
+            storageBucket: "portfolio-reviews-61da7.firebasestorage.app",
+            messagingSenderId: "223840413523",
+            appId: "1:223840413523:web:ad07b66a10f982332f23a6",
+            measurementId: "G-3MVPQ248VF"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+
+        // Star rating functionality
+        const stars = document.querySelectorAll('.star-rating i');
+        let selectedRating = 0;
+
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() {
+                const rating = this.getAttribute('data-rating');
+                updateStars(rating);
+            });
+
+            star.addEventListener('mouseout', function() {
+                updateStars(selectedRating);
+            });
+
+            star.addEventListener('click', function() {
+                selectedRating = this.getAttribute('data-rating');
+                updateStars(selectedRating);
+            });
+        });
+
+        function updateStars(rating) {
+            stars.forEach(star => {
+                const starRating = star.getAttribute('data-rating');
+                if (starRating <= rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                }
+            });
+        }
+
+        // Function to create star rating HTML
+        function createStarRating(rating) {
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                starsHtml += `<i class="${i <= rating ? 'fas' : 'far'} fa-star"></i>`;
+            }
+            return starsHtml;
+        }
+
+        // Function to format date
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Function to display reviews
+        function displayReviews(reviews) {
+            const reviewsList = document.getElementById('reviewsList');
+            
+            if (!reviews || Object.keys(reviews).length === 0) {
+                reviewsList.innerHTML = `
+                    <div class="review-card no-reviews">
+                        <div class="comment-content">
+                            <p class="comment-text">No reviews yet. Be the first to share your experience!</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            let reviewsHtml = '';
+            Object.entries(reviews).forEach(([key, review]) => {
+                reviewsHtml += `
+                    <div class="review-card">
+                        <div class="rating-stars">
+                            ${createStarRating(review.rating)}
+                        </div>
+                        <div class="comment-content">
+                            <p class="comment-text">${review.comment}</p>
+                            <div class="comment-author">
+                                <div class="author-info">
+                                    <h4>${review.name}</h4>
+                                    <p>${review.company}</p>
+                                    <small>${formatDate(review.timestamp)}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            reviewsList.innerHTML = reviewsHtml;
+        }
+
+        // Load reviews from Firebase
+        function loadReviews() {
+            const reviewsRef = ref(database, 'reviews');
+            onValue(reviewsRef, (snapshot) => {
+                const reviews = snapshot.val();
+                displayReviews(reviews);
+            });
+        }
+
+        // Form submission
+        document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const company = document.getElementById('company').value;
+            const comment = document.getElementById('comment').value;
+            
+            if (!selectedRating) {
+                alert('Please select a rating');
+                return;
+            }
+
+            // Create review object
+            const review = {
+                name: name,
+                company: company,
+                rating: parseInt(selectedRating),
+                comment: comment,
+                timestamp: Date.now()
+            };
+
+            try {
+                // Save to Firebase
+                const reviewsRef = ref(database, 'reviews');
+                await push(reviewsRef, review);
+                alert('Thank you for your review!');
+                this.reset();
+                updateStars(0);
+                selectedRating = 0;
+            } catch (error) {
+                console.error('Error saving review:', error);
+                alert('There was an error saving your review. Please try again.');
+            }
+        });
+
+        // Load reviews when page loads
+        document.addEventListener('DOMContentLoaded', loadReviews);
+    </script>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="navbar.js"></script>
+    <script src="common.js"></script>
+</body>
+</html> 
