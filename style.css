@@ -1338,7 +1338,7 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%);
     background: #1e1e1e;
     border-radius: 12px;
     width: 90%;
@@ -1347,7 +1347,7 @@ body {
     box-shadow: 
         0 0 30px rgba(0, 255, 255, 0.3),
         0 0 60px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 9999;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1361,7 +1361,6 @@ body {
 .code-window.active {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, -50%) scale(1);
 }
 
 .code-window-header {
@@ -1519,24 +1518,36 @@ body {
         width: 95%;
         max-height: 90vh;
         top: 50%;
-        transform: translate(-50%, -50%) scale(0.95);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        position: fixed;
+        z-index: 9999;
     }
 
     .code-window.active {
-        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        visibility: visible;
     }
 
     .code-window-content {
         padding: 15px;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
     }
 
     .code-block {
         font-size: 0.8rem;
         padding: 15px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
     }
 
     .code-window-header {
         padding: 12px 15px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
 }
 
@@ -1544,10 +1555,21 @@ body {
 @supports (-webkit-touch-callout: none) {
     .code-window {
         max-height: 85vh;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
     }
     
     .code-window-content {
         -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+    }
+
+    .code-window.active {
+        opacity: 1;
+        visibility: visible;
     }
 }
 
