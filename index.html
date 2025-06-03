@@ -275,15 +275,63 @@
 
     <!-- Top Rated Comment Section -->
     <section id="top-comment" class="container my-5 fade-in">
-        <h2>Featured Review</h2>
-        <div class="top-comment-card" id="topReviewCard">
-            <div class="comment-content">
-                <p class="comment-text">Be the first to leave a review and share your experience working with me!</p>
+        <div class="review-header text-center mb-4">
+            <h2>Featured Review</h2>
+            <div class="review-stats">
+                <div class="average-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <span class="rating-number" id="averageRating">0.0</span>
+                    </div>
+                    <span class="total-reviews">Based on <span id="totalReviews">0</span> reviews</span>
+                </div>
             </div>
-            <div class="view-all-comments">
-                <a href="reviews.html" class="btn btn-outline-primary">
-                    <i class="fas fa-comments me-2"></i>Leave a Review
-                </a>
+        </div>
+
+        <div class="review-carousel">
+            <div class="top-comment-card" id="topReviewCard">
+                <div class="review-card-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="rating-stars">
+                        ${createStarRating(topReview.rating)}
+                    </div>
+                    <div class="comment-content">
+                        <p class="comment-text">Be the first to leave a review and share your experience working with me!</p>
+                    </div>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Your Name</h4>
+                            <p class="reviewer-company">Your Company</p>
+                            <small class="review-date">Share your experience</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-actions">
+                    <div class="helpful-votes">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-thumbs-up"></i> Helpful
+                        </button>
+                        <span class="vote-count">0</span>
+                    </div>
+                    <div class="share-buttons">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" title="Share on LinkedIn" aria-label="Share on LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" title="Share on Twitter" aria-label="Share on Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="view-all-comments">
+                    <a href="reviews.html" class="btn btn-primary">
+                        <i class="fas fa-comments me-2"></i>Leave a Review
+                    </a>
+                </div>
             </div>
         </div>
     </section>
