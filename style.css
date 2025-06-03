@@ -2382,6 +2382,11 @@ body {
     margin-top: 1rem;
 }
 
+/* Initially hide the top review card to prevent flicker */
+#topReviewCard {
+    display: none;
+}
+
 .average-rating {
     display: flex;
     align-items: center;
@@ -2650,5 +2655,10 @@ body {
 [data-theme="dark"] .comment-text,
 [data-theme="dark"] .reviewer-info {
     background: rgba(255, 255, 255, 0.05);
+}
+
+/* Initially hide the top review card */
+#topReviewCard {
+    display: none;
 }
 

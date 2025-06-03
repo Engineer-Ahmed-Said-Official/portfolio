@@ -283,6 +283,7 @@
                         <i class="fas fa-star"></i>
                         <span class="rating-number" id="averageRating">0.0</span>
                     </div>
+                    <span class="total-reviews">Based on <span id="totalReviews">0</span> reviews</span>
                 </div>
             </div>
         </div>
@@ -480,12 +481,36 @@
             const reviewsRef = ref(database, 'reviews');
             onValue(reviewsRef, (snapshot) => {
                 const reviews = snapshot.val();
+                console.log("Firebase reviews data:", reviews);
                 displayTopReview(reviews);
+                updateReviewStats(reviews);
+                topReviewCard.style.display = 'block';
             });
         }
 
         // Load top review when page loads
         document.addEventListener('DOMContentLoaded', loadTopReview);
+
+        // Update total reviews count and average rating
+        function updateReviewStats(reviews) {
+            const totalReviewsElement = document.getElementById('totalReviews');
+            const averageRatingElement = document.getElementById('averageRating');
+
+            if (!reviews || Object.keys(reviews).length === 0) {
+                if (totalReviewsElement) totalReviewsElement.textContent = '0';
+                if (averageRatingElement) averageRatingElement.textContent = '0.0';
+                return;
+            }
+
+            // Calculate total reviews
+            const totalReviews = Object.keys(reviews).length;
+            if (totalReviewsElement) totalReviewsElement.textContent = totalReviews;
+
+            // Calculate average rating
+            const totalRating = Object.values(reviews).reduce((sum, review) => sum + review.rating, 0);
+            const averageRating = (totalRating / totalReviews).toFixed(1);
+            if (averageRatingElement) averageRatingElement.textContent = averageRating;
+        }
     </script>
 </body>
 </html>
