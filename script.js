@@ -133,6 +133,59 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Image Modal (Popup) logic for project images
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('imgModalImg');
+    const closeBtn = document.querySelector('.img-modal-close');
+    const prevBtn = document.getElementById('imgModalPrev');
+    const nextBtn = document.getElementById('imgModalNext');
+    let currentImages = [];
+    let currentIndex = 0;
+
+    // Gather all project images
+    document.querySelectorAll('.project-images').forEach(imagesDiv => {
+        const imgs = Array.from(imagesDiv.querySelectorAll('img'));
+        imgs.forEach((img, idx) => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function() {
+                currentImages = imgs.map(i => i.src);
+                currentIndex = idx;
+                modalImg.src = currentImages[currentIndex];
+                // جلب اسم ووصف المشروع
+                const card = img.closest('.project-card');
+                const title = card ? card.querySelector('h2')?.textContent : '';
+                const desc = card ? card.querySelector('p')?.textContent : '';
+                document.getElementById('imgModalTitle').textContent = title || '';
+                document.getElementById('imgModalDesc').textContent = desc || '';
+                modal.style.display = 'flex';
+            });
+        });
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+        modalImg.src = '';
+    };
+    prevBtn.onclick = function(e) {
+        e.stopPropagation();
+        if (!currentImages.length) return;
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        modalImg.src = currentImages[currentIndex];
+    };
+    nextBtn.onclick = function(e) {
+        e.stopPropagation();
+        if (!currentImages.length) return;
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        modalImg.src = currentImages[currentIndex];
+    };
+    // Close modal when clicking outside image
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            modalImg.src = '';
+        }
+    });
 });
 
 /* Project Filtering */
@@ -485,53 +538,4 @@ setTimeout(() => {
     };
   });
 }, 200);
-
-// Image Modal (Popup) logic for project images
-(function() {
-  const modal = document.getElementById('imgModal');
-  const modalImg = document.getElementById('imgModalImg');
-  const closeBtn = document.querySelector('.img-modal-close');
-  const prevBtn = document.getElementById('imgModalPrev');
-  const nextBtn = document.getElementById('imgModalNext');
-  let currentImages = [];
-  let currentIndex = 0;
-
-  // Gather all project images
-  document.querySelectorAll('.project-images').forEach(imagesDiv => {
-    const imgs = Array.from(imagesDiv.querySelectorAll('img'));
-    imgs.forEach((img, idx) => {
-      img.style.cursor = 'pointer';
-      img.addEventListener('click', function() {
-        currentImages = imgs.map(i => i.src);
-        currentIndex = idx;
-        modalImg.src = currentImages[currentIndex];
-        modal.style.display = 'flex';
-      });
-    });
-  });
-
-  closeBtn.onclick = function() {
-    modal.style.display = 'none';
-    modalImg.src = '';
-  };
-  prevBtn.onclick = function(e) {
-    e.stopPropagation();
-    if (!currentImages.length) return;
-    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-    modalImg.src = currentImages[currentIndex];
-  };
-  nextBtn.onclick = function(e) {
-    e.stopPropagation();
-    if (!currentImages.length) return;
-    currentIndex = (currentIndex + 1) % currentImages.length;
-    modalImg.src = currentImages[currentIndex];
-  };
-  // Close modal when clicking outside image
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-      modalImg.src = '';
-    }
-  });
-})();
 

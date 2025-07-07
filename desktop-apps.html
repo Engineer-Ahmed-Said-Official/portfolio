@@ -56,7 +56,16 @@
       <div class="project-card">
         <h2>Refrigeration System</h2>
         <div class="project-images">
-          <!-- أضف صور fridges هنا إذا وجدت -->
+          <img src="images/desktop-apps/coller/1.png" alt="Coller 1">
+          <img src="images/desktop-apps/coller/2.png" alt="Coller 2">
+          <img src="images/desktop-apps/coller/3.png" alt="Coller 3">
+          <img src="images/desktop-apps/coller/4.png" alt="Coller 4">
+          <img src="images/desktop-apps/coller/5.png" alt="Coller 5">
+          <img src="images/desktop-apps/coller/6.png" alt="Coller 6">
+          <img src="images/desktop-apps/coller/7.png" alt="Coller 7">
+          <img src="images/desktop-apps/coller/8.png" alt="Coller 8">
+          <img src="images/desktop-apps/coller/9.png" alt="Coller 9">
+          <img src="images/desktop-apps/coller/10.png" alt="Coller 10">
         </div>
         <p>System for monitoring and managing commercial refrigeration units, including temperature tracking and alerts.</p>
         <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
@@ -110,10 +119,16 @@
   <script src="common.js"></script>
   <!-- Popup for enlarged images -->
   <div id="imgModal" class="img-modal" style="display:none;">
-    <span class="img-modal-close">&times;</span>
-    <button class="img-modal-arrow" id="imgModalPrev" type="button">&#8592;</button>
-    <img id="imgModalImg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Project Image">
-    <button class="img-modal-arrow" id="imgModalNext" type="button">&#8594;</button>
+    <div class="img-modal-content">
+      <span class="img-modal-close">&times;</span>
+      <button class="img-modal-arrow" id="imgModalPrev" type="button">&#8592;</button>
+      <img id="imgModalImg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Project Image">
+      <button class="img-modal-arrow" id="imgModalNext" type="button">&#8594;</button>
+      <div class="img-modal-info">
+        <h3 id="imgModalTitle">Project Title</h3>
+        <p id="imgModalDesc"></p>
+      </div>
+    </div>
   </div>
 </body>
 </html> 
