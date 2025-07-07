@@ -409,3 +409,129 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Popup image viewer for projects
+const popup = document.getElementById('imagePopup');
+const popupImg = document.getElementById('popupImg');
+const closePopup = document.querySelector('.close-popup');
+const popupPrev = document.getElementById('popupPrev');
+const popupNext = document.getElementById('popupNext');
+let popupImages = [];
+let popupIndex = 0;
+
+function showPopupImages(images, startIdx = 0) {
+  popupImages = images;
+  popupIndex = startIdx;
+  popupImg.src = popupImages[popupIndex];
+  popup.style.display = 'flex';
+}
+
+closePopup.onclick = function() {
+  popup.style.display = 'none';
+  popupImg.src = '';
+};
+popupPrev.onclick = function() {
+  popupIndex = (popupIndex - 1 + popupImages.length) % popupImages.length;
+  popupImg.src = popupImages[popupIndex];
+};
+popupNext.onclick = function() {
+  popupIndex = (popupIndex + 1) % popupImages.length;
+  popupImg.src = popupImages[popupIndex];
+};
+
+// Close popup on background click
+popup.addEventListener('click', function(e) {
+  if (e.target === popup) {
+    popup.style.display = 'none';
+    popupImg.src = '';
+  }
+});
+
+// Prepare images for each project
+const projectImages = {
+  cashier: [],
+  fridges: [],
+  playstation: [],
+  'restaurant-pos': []
+};
+const exts = ['png', 'PNG', 'jpg', 'jpeg'];
+projects.forEach((project, idx) => {
+  for (let i = 1; i <= project.count; i++) {
+    let found = false;
+    for (const ext of exts) {
+      const path = `images/desktop-apps/${project.key}/${i}.${ext}`;
+      const xhr = new XMLHttpRequest();
+      xhr.open('HEAD', path, false);
+      xhr.send();
+      if (xhr.status === 200) {
+        projectImages[project.key].push(path);
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      projectImages[project.key].push('https://via.placeholder.com/600x400?text=No+Image');
+    }
+  }
+});
+
+// Attach event listeners to all view buttons
+setTimeout(() => {
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.onclick = function() {
+      const key = btn.getAttribute('data-project');
+      if (projectImages[key] && projectImages[key].length > 0) {
+        showPopupImages(projectImages[key], 0);
+      }
+    };
+  });
+}, 200);
+
+// Image Modal (Popup) logic for project images
+(function() {
+  const modal = document.getElementById('imgModal');
+  const modalImg = document.getElementById('imgModalImg');
+  const closeBtn = document.querySelector('.img-modal-close');
+  const prevBtn = document.getElementById('imgModalPrev');
+  const nextBtn = document.getElementById('imgModalNext');
+  let currentImages = [];
+  let currentIndex = 0;
+
+  // Gather all project images
+  document.querySelectorAll('.project-images').forEach(imagesDiv => {
+    const imgs = Array.from(imagesDiv.querySelectorAll('img'));
+    imgs.forEach((img, idx) => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', function() {
+        currentImages = imgs.map(i => i.src);
+        currentIndex = idx;
+        modalImg.src = currentImages[currentIndex];
+        modal.style.display = 'flex';
+      });
+    });
+  });
+
+  closeBtn.onclick = function() {
+    modal.style.display = 'none';
+    modalImg.src = '';
+  };
+  prevBtn.onclick = function(e) {
+    e.stopPropagation();
+    if (!currentImages.length) return;
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    modalImg.src = currentImages[currentIndex];
+  };
+  nextBtn.onclick = function(e) {
+    e.stopPropagation();
+    if (!currentImages.length) return;
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    modalImg.src = currentImages[currentIndex];
+  };
+  // Close modal when clicking outside image
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      modalImg.src = '';
+    }
+  });
+})();
+

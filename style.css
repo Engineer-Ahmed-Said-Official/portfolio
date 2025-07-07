@@ -2424,3 +2424,102 @@ body {
     }
 }
 
+/* View Button */
+.view-btn {
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 1em;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+.view-btn:hover {
+  background: #005fa3;
+}
+
+/* WhatsApp Button */
+.whatsapp-btn {
+  display: inline-block;
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 1em;
+  margin-top: 10px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.whatsapp-btn:hover {
+  background: #128c7e;
+}
+
+/* Image Modal (Popup) */
+.img-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+.img-modal img {
+  max-width: 80vw;
+  max-height: 70vh;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px #000a;
+  margin: 20px 0;
+  background: #fff;
+}
+.img-modal-close {
+  color: #fff;
+  font-size: 2.5em;
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  cursor: pointer;
+  z-index: 10001;
+}
+.img-modal-arrow {
+  background: #fff9;
+  border: none;
+  font-size: 2em;
+  border-radius: 50%;
+  padding: 8px 18px;
+  margin: 0 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10001;
+}
+.img-modal-arrow:hover {
+  background: #0078d7;
+  color: #fff;
+}
+
+/* Project Images Grid */
+.project-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.project-images img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px #0001;
+  transition: transform 0.2s;
+}
+.project-images img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px #0002;
+}
+

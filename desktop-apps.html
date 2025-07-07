@@ -42,26 +42,59 @@
       <!-- Cashier Project -->
       <div class="project-card">
         <h2>Cashier System for Shops</h2>
-        <div class="carousel" data-project="cashier"></div>
+        <div class="project-images">
+          <img src="images/desktop-apps/cashier/1.png" alt="Cashier 1">
+          <img src="images/desktop-apps/cashier/2.png" alt="Cashier 2">
+          <img src="images/desktop-apps/cashier/3.png" alt="Cashier 3">
+          <img src="images/desktop-apps/cashier/4.png" alt="Cashier 4">
+          <img src="images/desktop-apps/cashier/5.png" alt="Cashier 5">
+        </div>
         <p>A desktop application designed to manage sales, inventory, and receipts for retail shops efficiently.</p>
+        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
       <!-- Fridges Project -->
       <div class="project-card">
         <h2>Refrigeration System</h2>
-        <div class="carousel" data-project="fridges"></div>
+        <div class="project-images">
+          <!-- أضف صور fridges هنا إذا وجدت -->
+        </div>
         <p>System for monitoring and managing commercial refrigeration units, including temperature tracking and alerts.</p>
+        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
       <!-- Playstation Project -->
       <div class="project-card">
         <h2>PlayStation Management System</h2>
-        <div class="carousel" data-project="playstation"></div>
+        <div class="project-images">
+          <img src="images/desktop-apps/playstation/1.png" alt="Playstation 1">
+          <img src="images/desktop-apps/playstation/2.png" alt="Playstation 2">
+          <img src="images/desktop-apps/playstation/3.png" alt="Playstation 3">
+          <img src="images/desktop-apps/playstation/4.png" alt="Playstation 4">
+          <img src="images/desktop-apps/playstation/5.png" alt="Playstation 5">
+          <img src="images/desktop-apps/playstation/6.png" alt="Playstation 6">
+          <img src="images/desktop-apps/playstation/7.png" alt="Playstation 7">
+          <img src="images/desktop-apps/playstation/8.png" alt="Playstation 8">
+        </div>
         <p>Desktop solution for PlayStation cafes to handle bookings, time tracking, and customer management.</p>
+        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
       <!-- Restaurant POS Project -->
       <div class="project-card">
         <h2>Restaurant POS System</h2>
-        <div class="carousel" data-project="restaurant-pos"></div>
+        <div class="project-images">
+          <img src="images/desktop-apps/restaurant-pos/1.png" alt="Restaurant POS 1">
+          <img src="images/desktop-apps/restaurant-pos/2.png" alt="Restaurant POS 2">
+          <img src="images/desktop-apps/restaurant-pos/3.png" alt="Restaurant POS 3">
+          <img src="images/desktop-apps/restaurant-pos/4.png" alt="Restaurant POS 4">
+          <img src="images/desktop-apps/restaurant-pos/5.png" alt="Restaurant POS 5">
+          <img src="images/desktop-apps/restaurant-pos/6.png" alt="Restaurant POS 6">
+          <img src="images/desktop-apps/restaurant-pos/7.png" alt="Restaurant POS 7">
+          <img src="images/desktop-apps/restaurant-pos/8.png" alt="Restaurant POS 8">
+          <img src="images/desktop-apps/restaurant-pos/9.png" alt="Restaurant POS 9">
+          <img src="images/desktop-apps/restaurant-pos/10.png" alt="Restaurant POS 10">
+          <img src="images/desktop-apps/restaurant-pos/11.png" alt="Restaurant POS 11">
+        </div>
         <p>Point of Sale system tailored for restaurants, featuring order management, billing, and reporting tools.</p>
+        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
     </div>
   </main>
@@ -69,8 +102,18 @@
     <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
   <script src="script.js"></script>
   <script src="navbar.js"></script>
   <script src="common.js"></script>
+  <!-- Popup for enlarged images -->
+  <div id="imgModal" class="img-modal" style="display:none;">
+    <span class="img-modal-close">&times;</span>
+    <button class="img-modal-arrow" id="imgModalPrev" type="button">&#8592;</button>
+    <img id="imgModalImg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Project Image">
+    <button class="img-modal-arrow" id="imgModalNext" type="button">&#8594;</button>
+  </div>
 </body>
 </html> 
