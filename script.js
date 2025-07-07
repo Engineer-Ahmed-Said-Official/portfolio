@@ -326,3 +326,86 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// List of projects and their folder names
+const projects = [
+  { key: 'cashier', count: 0 },
+  { key: 'fridges', count: 0 },
+  { key: 'playstation', count: 0 },
+  { key: 'restaurant-pos', count: 0 }
+];
+
+// Helper to fetch image count for each project (since JS can't read folders directly, you must set the count manually)
+// Example: set the number of images for each project below
+projects[0].count = 5;  // cashier
+projects[1].count = 0;  // fridges (not found)
+projects[2].count = 8;  // playstation
+projects[3].count = 11; // restaurant-pos
+
+// You MUST update the counts above to match your actual images!
+
+document.addEventListener('DOMContentLoaded', () => {
+  projects.forEach(project => {
+    const carousel = document.querySelector(`.carousel[data-project="${project.key}"]`);
+    if (!carousel || project.count === 0) return;
+
+    let current = 0;
+    const images = [];
+    for (let i = 1; i <= project.count; i++) {
+      const exts = ['png', 'PNG', 'jpg', 'jpeg'];
+      let found = false;
+      for (const ext of exts) {
+        const path = `images/desktop-apps/${project.key}/${i}.${ext}`;
+        const xhr = new XMLHttpRequest();
+        xhr.open('HEAD', path, false);
+        xhr.send();
+        if (xhr.status === 200) {
+          images.push(path);
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        // If no image found, push a placeholder or skip
+        images.push('https://via.placeholder.com/260x170?text=No+Image');
+      }
+    }
+
+    // Create image element
+    const img = document.createElement('img');
+    img.src = images[0];
+    carousel.appendChild(img);
+
+    // Controls
+    const controls = document.createElement('div');
+    controls.className = 'carousel-controls';
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'carousel-btn';
+    prevBtn.innerHTML = '&#8592;';
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'carousel-btn';
+    nextBtn.innerHTML = '&#8594;';
+    controls.appendChild(prevBtn);
+    controls.appendChild(nextBtn);
+    carousel.appendChild(controls);
+
+    function show(idx) {
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = images[idx];
+        img.style.opacity = 1;
+      }, 200);
+    }
+
+    prevBtn.onclick = (e) => {
+      e.stopPropagation();
+      current = (current - 1 + images.length) % images.length;
+      show(current);
+    };
+    nextBtn.onclick = (e) => {
+      e.stopPropagation();
+      current = (current + 1) % images.length;
+      show(current);
+    };
+  });
+});
+

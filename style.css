@@ -36,16 +36,10 @@
 
 /* Body Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f8fa;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    width: 100%;
-    position: relative;
-    padding-top: 76px; /* Match navbar height */
 }
 
 /* Container Styles */
@@ -450,29 +444,31 @@ footer::before {
 }
 
 .project-card {
-    background: var(--card-bg);
-    border-radius: 16px;
-    padding: 2rem;
-    height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.1);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #0001;
+    padding: 24px 20px 32px 20px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 24px #0002;
 }
 
-.project-content h3 {
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+.project-card h2 {
+    margin: 0 0 16px 0;
+    color: #0078d7;
+    font-size: 1.3em;
 }
 
-.project-content p {
-    color: var(--text-color);
-    opacity: 0.9;
-    margin-bottom: 1.5rem;
+.project-card p {
+    color: #444;
+    margin-top: 18px;
+    text-align: center;
 }
 
 .project-tech-stack {
@@ -2365,5 +2361,66 @@ body {
 /* Dark theme adjustments */
 [data-theme="dark"] .review-card.no-reviews {
     border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* New carousel styles */
+.carousel {
+    position: relative;
+    width: 260px;
+    height: 170px;
+    margin-bottom: 10px;
+    background: #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: opacity 0.4s;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.carousel-btn {
+    background: #fff9;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 2px 10px;
+    border-radius: 50%;
+    margin: 0 6px;
+    pointer-events: all;
+    transition: background 0.2s;
+    z-index: 2;
+}
+
+.carousel-btn:hover {
+    background: #0078d7;
+    color: #fff;
+}
+
+@media (max-width: 900px) {
+    .projects-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .project-card {
+        width: 95%;
+        max-width: 400px;
+    }
 }
 
