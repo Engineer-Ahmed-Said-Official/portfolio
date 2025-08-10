@@ -79,7 +79,7 @@
                             <div class="skill-item" data-language="python">
                                 <i class="fab fa-python"></i>
                                 <span>Python</span>
-                                <progress class="progress-bar" value="90" max="100"></progress>
+                                <progress class="progress-bar" value="95" max="100"></progress>
                             </div>
                             <div class="skill-item" data-language="java">
                                 <i class="fab fa-java"></i>
@@ -89,7 +89,12 @@
                             <div class="skill-item" data-language="javascript">
                                 <i class="fab fa-js"></i>
                                 <span>JavaScript</span>
-                                <progress class="progress-bar" value="70" max="100"></progress>
+                                <progress class="progress-bar" value="80" max="100"></progress>
+                            </div>
+                            <div class="skill-item" data-language="nodejs">
+                                <i class="fab fa-node-js"></i>
+                                <span>Node.js</span>
+                                <progress class="progress-bar" value="75" max="100"></progress>
                             </div>
                         </div>
                     </div>
@@ -99,12 +104,12 @@
                             <div class="skill-item" data-language="html">
                                 <i class="fab fa-html5"></i>
                                 <span>HTML5</span>
-                                <progress class="progress-bar" value="80" max="100"></progress>
+                                <progress class="progress-bar" value="85" max="100"></progress>
                             </div>
                             <div class="skill-item" data-language="css">
                                 <i class="fab fa-css3-alt"></i>
                                 <span>CSS3</span>
-                                <progress class="progress-bar" value="75" max="100"></progress>
+                                <progress class="progress-bar" value="80" max="100"></progress>
                             </div>
                         </div>
                     </div>
@@ -167,6 +172,7 @@
             <div class="col-md-2 skill-item" data-language="html"><i class="fab fa-html5"></i><p>HTML</p></div>
             <div class="col-md-2 skill-item" data-language="css"><i class="fab fa-css3-alt"></i><p>CSS</p></div>
             <div class="col-md-2 skill-item" data-language="javascript"><i class="fab fa-js"></i><p>JavaScript</p></div>
+            <div class="col-md-2 skill-item" data-language="nodejs"><i class="fab fa-node-js"></i><p>Node.js</p></div>
             <div class="col-md-2 skill-item" data-language="java"><i class="fab fa-java"></i><p>Java</p></div>
             <div class="col-md-2 skill-item" data-language="python"><i class="fab fa-python"></i><p>Python</p></div>
         </div>
@@ -180,9 +186,9 @@
                 <div class="skill-progress-item">
                     <div class="d-flex justify-content-between">
                         <span>Python</span>
-                        <span>90%</span>
+                        <span>95%</span>
                     </div>
-                    <progress class="progress-bar" value="90" max="100"></progress>
+                    <progress class="progress-bar" value="95" max="100"></progress>
                 </div>
                 <div class="skill-progress-item">
                     <div class="d-flex justify-content-between">
@@ -193,19 +199,19 @@
                 </div>
                 <div class="skill-progress-item">
                     <div class="d-flex justify-content-between">
-                        <span>AI/ML</span>
-                        <span>80%</span>
+                        <span>Machine Learning</span>
+                        <span>90%</span>
                     </div>
-                    <progress class="progress-bar" value="80" max="100"></progress>
+                    <progress class="progress-bar" value="90" max="100"></progress>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="skill-progress-item">
                     <div class="d-flex justify-content-between">
                         <span>Web Development</span>
-                        <span>75%</span>
+                        <span>85%</span>
                     </div>
-                    <progress class="progress-bar" value="75" max="100"></progress>
+                    <progress class="progress-bar" value="85" max="100"></progress>
                 </div>
                 <div class="skill-progress-item">
                     <div class="d-flex justify-content-between">
@@ -240,6 +246,8 @@
                         <li>Computer Vision</li>
                         <li>Natural Language Processing</li>
                         <li>Neural Networks</li>
+                        <li>Face Detection</li>
+                        <li>Fire Detection</li>
                     </ul>
                 </div>
             </div>
@@ -252,6 +260,7 @@
                     <ul class="competency-list">
                         <li>Python Development</li>
                         <li>Java Programming</li>
+                        <li>Node.js Development</li>
                         <li>Web Development</li>
                         <li>API Integration</li>
                     </ul>
@@ -277,15 +286,63 @@
     <!-- Top Rated Comment Section -->
     <section id="top-comment" class="container my-5 fade-in">
         <h2>Featured Review</h2>
+
+        <!-- Reviews Stats -->
+        <div class="reviews-stats" id="reviewsStats">
+            <div class="stat-item">
+                <span class="stat-number" id="totalReviews">0</span>
+                <span class="stat-label">Total Reviews</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="avgRating">0.0</span>
+                <span class="stat-label">Average Rating</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="topRating">0</span>
+                <span class="stat-label">Top Rating</span>
+            </div>
+        </div>
+
         <div class="top-comment-card" id="topReviewCard">
             <div class="comment-content">
                 <p class="comment-text">Be the first to leave a review and share your experience working with me!</p>
+            </div>
+            <div class="comment-author">
+                <div class="author-info">
+                    <h4>No Reviews Yet</h4>
+                    <p>Be the first to share your experience!</p>
+                </div>
             </div>
             <div class="view-all-comments">
                 <a href="reviews.html" class="btn btn-outline-primary">
                     <i class="fas fa-comments me-2"></i>Leave a Review
                 </a>
+                <button type="button" class="share-btn" id="shareReviewBtn" onclick="shareReview()">
+                    <i class="fas fa-share-alt"></i>
+                    Share
+                </button>
             </div>
+        </div>
+
+        <!-- Reviews Navigation -->
+        <div class="reviews-navigation" id="reviewsNavigation">
+            <button type="button" class="nav-btn" id="prevReviewBtn" title="Previous Review" aria-label="Previous Review" onclick="prevReview()">
+                <i class="fas fa-chevron-left"></i>
+                <span class="sr-only">Previous Review</span>
+            </button>
+            <span id="reviewCounter" class="review-counter">1 of 1</span>
+            <button type="button" class="nav-btn" id="nextReviewBtn" title="Next Review" aria-label="Next Review" onclick="nextReview()">
+                <i class="fas fa-chevron-right"></i>
+                <span class="sr-only">Next Review</span>
+            </button>
+        </div>
+
+        <!-- Add Review Button -->
+        <div class="text-center mt-4">
+            <button type="button" class="add-review-btn" onclick="window.location.href='reviews.html'">
+                <i class="fas fa-plus"></i>
+                Add Your Review
+            </button>
         </div>
     </section>
 
@@ -316,7 +373,7 @@
         <div class="code-window-header">
             <div class="code-window-title">
                 <i class="fas fa-code"></i>
-                <span>Hello World Example</span>
+                <span id="code-window-title">Hello World Example</span>
             </div>
             <button class="code-window-close" type="button" title="Close code window" aria-label="Close code window">
                 <i class="fas fa-times"></i>
@@ -335,111 +392,6 @@
     <script src="navbar.js"></script>
     <script src="common.js"></script>
     <script src="code-window.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBGJy-QhZVVGRDSyNCL3Q0dJ38BYIYGCE8",
-            authDomain: "portfolio-reviews-61da7.firebaseapp.com",
-            databaseURL: "https://portfolio-reviews-61da7-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "portfolio-reviews-61da7",
-            storageBucket: "portfolio-reviews-61da7.firebasestorage.app",
-            messagingSenderId: "223840413523",
-            appId: "1:223840413523:web:ad07b66a10f982332f23a6",
-            measurementId: "G-3MVPQ248VF"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const database = getDatabase(app);
-
-        // Function to create star rating HTML
-        function createStarRating(rating) {
-            let starsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                starsHtml += `<i class="${i <= rating ? 'fas' : 'far'} fa-star"></i>`;
-            }
-            return starsHtml;
-        }
-
-        // Function to format date
-        function formatDate(timestamp) {
-            const date = new Date(timestamp);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-
-        // Function to display top review
-        function displayTopReview(reviews) {
-            const topReviewCard = document.getElementById('topReviewCard');
-            
-            if (!reviews || Object.keys(reviews).length === 0) {
-                topReviewCard.innerHTML = `
-                    <div class="comment-content">
-                        <p class="comment-text">Be the first to leave a review and share your experience working with me!</p>
-                    </div>
-                    <div class="view-all-comments">
-                        <a href="reviews.html" class="btn btn-outline-primary">
-                            <i class="fas fa-comments me-2"></i>Leave a Review
-                        </a>
-                    </div>
-                `;
-                return;
-            }
-
-            // Find the highest rated review
-            let topReview = null;
-            let highestRating = 0;
-
-            Object.entries(reviews).forEach(([key, review]) => {
-                if (review.rating > highestRating) {
-                    highestRating = review.rating;
-                    topReview = review;
-                }
-            });
-
-            if (topReview) {
-                topReviewCard.innerHTML = `
-                    <div class="rating-stars">
-                        ${createStarRating(topReview.rating)}
-                    </div>
-                    <div class="comment-content">
-                        <p class="comment-text">${topReview.comment}</p>
-                        <div class="comment-author">
-                            <div class="author-info">
-                                <h4>${topReview.name}</h4>
-                                <p>${topReview.company}</p>
-                                <small>${formatDate(topReview.timestamp)}</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="view-all-comments">
-                        <a href="reviews.html" class="btn btn-outline-primary">
-                            <i class="fas fa-comments me-2"></i>View All Reviews
-                        </a>
-                    </div>
-                `;
-            }
-        }
-
-        // Load top review from Firebase
-        function loadTopReview() {
-            const reviewsRef = ref(database, 'reviews');
-            onValue(reviewsRef, (snapshot) => {
-                const reviews = snapshot.val();
-                displayTopReview(reviews);
-            });
-        }
-
-        // Load top review when page loads
-        document.addEventListener('DOMContentLoaded', loadTopReview);
-    </script>
+    <script src="firebase-config.js"></script>
 </body>
 </html>

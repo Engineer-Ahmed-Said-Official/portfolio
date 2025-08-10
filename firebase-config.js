@@ -1,9 +1,4 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database";
-
-// Your web app's Firebase configuration
+// Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBGJy-QhZVVGRDSyNCL3Q0dJ38BYIYGCE8",
     authDomain: "portfolio-reviews-61da7.firebaseapp.com",
@@ -15,9 +10,81 @@ const firebaseConfig = {
     measurementId: "G-3MVPQ248VF"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const database = getDatabase(app);
+// Initialize Firebase with error handling
+let app, analytics, database;
 
-export { database, analytics }; 
+try {
+    // Import Firebase modules dynamically
+    import('https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js')
+        .then(({ initializeApp }) => {
+            app = initializeApp(firebaseConfig);
+            console.log('Firebase App initialized successfully');
+            
+            // Initialize Analytics
+            return import('https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js');
+        })
+        .then(({ getAnalytics }) => {
+            try {
+                analytics = getAnalytics(app);
+                console.log('Firebase Analytics initialized successfully');
+            } catch (error) {
+                console.warn('Analytics initialization failed:', error);
+            }
+            
+            // Initialize Database
+            return import('https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js');
+        })
+        .then(({ getDatabase, ref, onValue }) => {
+            try {
+                database = getDatabase(app);
+                console.log('Firebase Database initialized successfully');
+                
+                // Make Firebase functions globally available
+                window.FirebaseDB = {
+                    database,
+                    ref,
+                    onValue,
+                    isInitialized: true
+                };
+                
+                // Trigger reviews loading if page is ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', () => {
+                        if (window.loadTopReview) {
+                            window.loadTopReview();
+                        }
+                    });
+                } else {
+                    if (window.loadTopReview) {
+                        window.loadTopReview();
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Database initialization failed:', error);
+                window.FirebaseDB = {
+                    isInitialized: false,
+                    error: error.message
+                };
+            }
+        })
+        .catch((error) => {
+            console.error('Firebase initialization failed:', error);
+            window.FirebaseDB = {
+                isInitialized: false,
+                error: error.message
+            };
+        });
+
+} catch (error) {
+    console.error('Firebase configuration error:', error);
+    window.FirebaseDB = {
+        isInitialized: false,
+        error: error.message
+    };
+}
+
+// Export for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { firebaseConfig, FirebaseDB: window.FirebaseDB };
+} 

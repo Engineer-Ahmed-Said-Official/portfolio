@@ -257,93 +257,7 @@ function initializeReviewSection() {
 }
 
 // Firebase configuration and initialization
-const firebaseConfig = {
-    apiKey: "AIzaSyBGJy-QhZVVGRDSyNCL3Q0dJ38BYIYGCE8",
-    authDomain: "portfolio-reviews-61da7.firebaseapp.com",
-    databaseURL: "https://portfolio-reviews-61da7-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "portfolio-reviews-61da7",
-    storageBucket: "portfolio-reviews-61da7.firebasestorage.app",
-    messagingSenderId: "223840413523",
-    appId: "1:223840413523:web:ad07b66a10f982332f23a6",
-    measurementId: "G-3MVPQ248VF"
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const database = getDatabase(app);
-
-// Function to create star rating HTML
-function createStarRating(rating) {
-    let starsHtml = '';
-    for (let i = 1; i <= 5; i++) {
-        starsHtml += `<i class="${i <= rating ? 'fas' : 'far'} fa-star"></i>`;
-    }
-    return starsHtml;
-}
-
-// Function to format date
-function formatDate(timestamp) {
-    const date = new Date(timestamp);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-}
-
-// Function to display top review
-function displayTopReview(reviews) {
-    const topReviewCard = document.getElementById('topReviewCard');
-    
-    if (!reviews || Object.keys(reviews).length === 0) {
-        topReviewCard.innerHTML = `
-            <div class="comment-content">
-                <p class="comment-text">Be the first to leave a review and share your experience working with me!</p>
-            </div>
-            <div class="view-all-comments">
-                <a href="reviews.html" class="btn btn-outline-primary">
-                    <i class="fas fa-comments me-2"></i>Leave a Review
-                </a>
-            </div>
-        `;
-        return;
-    }
-
-    // Find the highest rated review
-    let topReview = null;
-    let highestRating = 0;
-
-    Object.entries(reviews).forEach(([key, review]) => {
-        if (review.rating > highestRating) {
-            highestRating = review.rating;
-            topReview = review;
-        }
-    });
-
-    if (topReview) {
-        topReviewCard.innerHTML = `
-            <div class="rating-stars">
-                ${createStarRating(topReview.rating)}
-            </div>
-            <div class="comment-content">
-                <p class="comment-text">${topReview.comment}</p>
-                <div class="comment-author">
-                    <div class="author-info">
-                        <h4>${topReview.name}</h4>
-                        <p>${topReview.company}</p>
-                        <small>${formatDate(topReview.timestamp)}</small>
-                    </div>
-                </div>
-            </div>
-            <div class="view-all-comments">
-                <a href="reviews.html" class="btn btn-outline-primary">
-                    <i class="fas fa-comments me-2"></i>View All Reviews
-                </a>
-            </div>
-        `;
-    }
-}
 
 // Update total reviews count and average rating
 function updateReviewStats(reviews) {
@@ -538,4 +452,558 @@ setTimeout(() => {
     };
   });
 }, 200);
+
+// Function to create star rating HTML
+function createStarRating(rating) {
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+        starsHtml += `<i class="${i <= rating ? 'fas' : 'far'} fa-star"></i>`;
+    }
+    return starsHtml;
+}
+
+// Function to animate numbers
+function animateNumber(element, start, end, duration) {
+    const startTime = performance.now();
+    const isFloat = end % 1 !== 0;
+    
+    function updateNumber(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = start + (end - start) * easeOutQuart;
+        
+        if (isFloat) {
+            element.textContent = current.toFixed(1);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateNumber);
+        }
+    }
+    
+    requestAnimationFrame(updateNumber);
+}
+
+// Function to format date
+function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+// Function to display top review
+function displayTopReview(reviews) {
+    const topReviewCard = document.getElementById('topReviewCard');
+    const reviewsStats = document.getElementById('reviewsStats');
+    const reviewsNavigation = document.getElementById('reviewsNavigation');
+    const shareReviewBtn = document.getElementById('shareReviewBtn');
+    
+    if (!reviews || Object.keys(reviews).length === 0) {
+        topReviewCard.innerHTML = `
+            <div class="comment-content">
+                <p class="comment-text">Be the first to leave a review and share your experience working with me!</p>
+            </div>
+            <div class="comment-author">
+                <div class="author-info">
+                    <h4>No Reviews Yet</h4>
+                    <p>Be the first to share your experience!</p>
+                </div>
+            </div>
+            <div class="view-all-comments">
+                <a href="reviews.html" class="btn btn-outline-primary">
+                    <i class="fas fa-comments me-2"></i>Leave a Review
+                </a>
+                <button type="button" class="share-btn" id="shareReviewBtn" onclick="shareReview('No Reviews', 'Be the first to share your experience!', 0)">
+                    <i class="fas fa-share-alt"></i>
+                    Share
+                </button>
+            </div>
+        `;
+        
+        // Hide stats and navigation when no reviews, but keep share button visible
+        reviewsStats.style.display = 'none';
+        reviewsNavigation.style.display = 'none';
+        
+        // After setting innerHTML, get the new share button and make it visible
+        setTimeout(() => {
+            const newShareBtn = document.getElementById('shareReviewBtn');
+            if (newShareBtn) {
+                newShareBtn.style.display = 'inline-flex';
+            }
+        }, 0);
+        return;
+    }
+
+    // Calculate stats
+    const reviewEntries = Object.entries(reviews);
+    const totalReviews = reviewEntries.length;
+    const totalRating = reviewEntries.reduce((sum, [key, review]) => sum + review.rating, 0);
+    const avgRating = (totalRating / totalReviews).toFixed(1);
+    const topRating = Math.max(...reviewEntries.map(([key, review]) => review.rating));
+
+    // Update stats with animation
+    const totalReviewsEl = document.getElementById('totalReviews');
+    const avgRatingEl = document.getElementById('avgRating');
+    const topRatingEl = document.getElementById('topRating');
+    
+    // Animate stats numbers
+    animateNumber(totalReviewsEl, 0, totalReviews, 1000);
+    animateNumber(avgRatingEl, 0, parseFloat(avgRating), 1000);
+    animateNumber(topRatingEl, 0, topRating, 1000);
+
+    // Show stats with animation
+    reviewsStats.style.display = 'flex';
+    
+    // Add animation classes to stats
+    const statItems = reviewsStats.querySelectorAll('.stat-item');
+    statItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+        item.classList.add('stat-item-appear');
+    });
+
+    // Find the highest rated review
+    let topReview = null;
+    let highestRating = 0;
+
+    reviewEntries.forEach(([key, review]) => {
+        if (review.rating > highestRating) {
+            highestRating = review.rating;
+            topReview = review;
+        }
+    });
+
+    if (topReview) {
+        // Store all reviews for navigation
+        window.allReviews = reviewEntries;
+        window.currentReviewIndex = 0;
+
+        // Show navigation if more than one review
+        if (totalReviews > 1) {
+            reviewsNavigation.style.display = 'flex';
+            updateReviewCounter();
+        } else {
+            reviewsNavigation.style.display = 'none';
+        }
+
+        // Show share button
+        shareReviewBtn.style.display = 'inline-flex';
+
+        // Display the review
+        displayReview(topReview);
+    }
+}
+
+// Function to display a specific review
+function displayReview(review) {
+    const topReviewCard = document.getElementById('topReviewCard');
+    
+    // Add slide out animation first
+    topReviewCard.classList.add('review-slide-out');
+    
+    // Wait for slide out animation to complete, then update content
+    setTimeout(() => {
+        topReviewCard.innerHTML = `
+            <div class="rating-stars">
+                ${createStarRating(review.rating)}
+            </div>
+            <div class="comment-content">
+                <p class="comment-text">${review.comment}</p>
+            </div>
+            <div class="comment-author">
+                <div class="author-info">
+                    <h4>${review.name}</h4>
+                    <p>${review.company}</p>
+                    <small>${formatDate(review.timestamp)}</small>
+                </div>
+            </div>
+            <div class="view-all-comments">
+                <a href="reviews.html" class="btn btn-outline-primary">
+                    <i class="fas fa-comments me-2"></i>View All Reviews
+                </a>
+                <button type="button" class="share-btn" id="shareReviewBtn" onclick="shareReview('${review.name}', '${review.comment}', ${review.rating})">
+                    <i class="fas fa-share-alt"></i>
+                    Share
+                </button>
+            </div>
+        `;
+        
+        // Remove slide out class and add slide in animation
+        topReviewCard.classList.remove('review-slide-out');
+        topReviewCard.classList.add('review-slide-in');
+        
+        // Remove animation class after animation completes
+        setTimeout(() => {
+            topReviewCard.classList.remove('review-slide-in');
+        }, 600);
+        
+    }, 400); // Original delay values
+}
+
+// Function to update review counter
+function updateReviewCounter() {
+    const counter = document.getElementById('reviewCounter');
+    const currentIndex = window.currentReviewIndex + 1;
+    const totalReviews = window.allReviews.length;
+    
+    // Add pulse animation
+    counter.classList.remove('counter-pulse');
+    void counter.offsetWidth; // Trigger reflow
+    counter.classList.add('counter-pulse');
+    
+    counter.textContent = `${currentIndex} of ${totalReviews}`;
+}
+
+// Function to navigate to next review
+function nextReview() {
+    if (window.currentReviewIndex < window.allReviews.length - 1) {
+        window.currentReviewIndex++;
+        const [key, review] = window.allReviews[window.currentReviewIndex];
+        displayReview(review);
+        updateReviewCounter();
+        updateNavigationButtons();
+    }
+}
+
+// Function to navigate to previous review
+function prevReview() {
+    if (window.currentReviewIndex > 0) {
+        window.currentReviewIndex--;
+        const [key, review] = window.allReviews[window.currentReviewIndex];
+        displayReview(review);
+        updateReviewCounter();
+        updateNavigationButtons();
+    }
+}
+
+// Function to update navigation buttons state
+function updateNavigationButtons() {
+    const prevBtn = document.getElementById('prevReviewBtn');
+    const nextBtn = document.getElementById('nextReviewBtn');
+    
+    prevBtn.disabled = window.currentReviewIndex === 0;
+    nextBtn.disabled = window.currentReviewIndex === window.allReviews.length - 1;
+}
+
+// Function to share review
+function shareReview(name, comment, rating) {
+    const text = `Check out this amazing review from ${name}: "${comment}" - ${rating}/5 stars!`;
+    const url = window.location.href;
+    
+    console.log('Sharing review:', { name, comment, rating, text, url });
+    
+    // Show share options dropdown
+    showShareOptions(text, url);
+}
+
+// Function to show share options dropdown
+function showShareOptions(text, url) {
+    // Remove existing dropdown if any
+    const existingDropdown = document.querySelector('.share-dropdown');
+    if (existingDropdown) {
+        existingDropdown.remove();
+    }
+    
+    // Create dropdown container
+    const dropdown = document.createElement('div');
+    dropdown.className = 'share-dropdown';
+    dropdown.innerHTML = `
+        <!-- X -->
+        <div class="share-option" data-action="twitter" data-text="${text}" data-url="${url}">
+            <i class="fab fa-twitter"></i>
+            <span>X</span>
+        </div>
+        <!-- Facebook -->
+        <div class="share-option" data-action="facebook" data-text="${text}" data-url="${url}">
+            <i class="fab fa-facebook"></i>
+            <span>Facebook</span>
+        </div>
+        <!-- LinkedIn -->
+        <div class="share-option" data-action="linkedin" data-text="${text}" data-url="${url}">
+            <i class="fab fa-linkedin"></i>
+            <span>LinkedIn</span>
+        </div>
+        <!-- WhatsApp -->
+        <div class="share-option" data-action="whatsapp" data-text="${text}" data-url="${url}">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp</span>
+        </div>
+        <!-- Telegram -->
+        <div class="share-option" data-action="telegram" data-text="${text}" data-url="${url}">
+            <i class="fab fa-telegram"></i>
+            <span>Telegram</span>
+        </div>
+        <!-- Copy to Clipboard -->
+        <div class="share-option" data-action="copy" data-text="${text}" data-url="${url}">
+            <i class="fas fa-copy"></i>
+            <span>Copy Link</span>
+        </div>
+        <!-- Email -->
+        <div class="share-option" data-action="email" data-text="${text}" data-url="${url}">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </div>
+    `;
+    
+            // Position dropdown near the share button
+        const shareBtn = document.getElementById('shareReviewBtn');
+        if (shareBtn) {
+            const rect = shareBtn.getBoundingClientRect();
+            
+            // Check if mobile device
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                // Center dropdown on mobile
+                dropdown.style.position = 'fixed';
+                dropdown.style.top = '50%';
+                dropdown.style.left = '50%';
+                dropdown.style.transform = 'translate(-50%, -50%)';
+                dropdown.style.width = '90vw';
+                dropdown.style.maxWidth = '300px';
+                dropdown.style.zIndex = '10000';
+                dropdown.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                dropdown.style.backdropFilter = 'blur(20px)';
+                dropdown.style.webkitBackdropFilter = 'blur(20px)';
+            } else {
+                // Desktop positioning
+                dropdown.style.position = 'absolute';
+                dropdown.style.top = (rect.bottom + 5) + 'px';
+                dropdown.style.left = rect.left + 'px';
+                dropdown.style.zIndex = '1000';
+            }
+        
+        // Add to body
+        document.body.appendChild(dropdown);
+        
+        // Add click event listeners to share options
+        const shareOptions = dropdown.querySelectorAll('.share-option');
+        shareOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                const text = this.getAttribute('data-text');
+                const url = this.getAttribute('data-url');
+                
+                switch(action) {
+                    case 'twitter':
+                        shareToTwitter(text, url);
+                        break;
+                    case 'facebook':
+                        shareToFacebook(text, url);
+                        break;
+                    case 'linkedin':
+                        shareToLinkedIn(text, url);
+                        break;
+                    case 'whatsapp':
+                        shareToWhatsApp(text, url);
+                        break;
+                    case 'telegram':
+                        shareToTelegram(text, url);
+                        break;
+                    case 'copy':
+                        copyToClipboard(text + ' ' + url);
+                        break;
+                    case 'email':
+                        shareViaEmail(text, url);
+                        break;
+                }
+                
+                // Close dropdown after action
+                dropdown.remove();
+            });
+        });
+        
+        // Close dropdown when clicking outside
+        setTimeout(() => {
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!dropdown.contains(e.target) && e.target !== shareBtn) {
+                    dropdown.remove();
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }, 100);
+        
+        // Close dropdown on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                dropdown.remove();
+                document.removeEventListener('keydown', arguments.callee);
+            }
+        });
+    }
+}
+
+// Share to X
+function shareToTwitter(text, url) {
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+    closeShareDropdown();
+}
+
+// Share to Facebook
+function shareToFacebook(text, url) {
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+    closeShareDropdown();
+}
+
+// Share to LinkedIn
+function shareToLinkedIn(text, url) {
+    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+    closeShareDropdown();
+}
+
+// Share to WhatsApp
+function shareToWhatsApp(text, url) {
+    const shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+    window.open(shareUrl, '_blank');
+    closeShareDropdown();
+}
+
+// Share to Telegram
+function shareToTelegram(text, url) {
+    const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+    window.open(shareUrl, '_blank');
+    closeShareDropdown();
+}
+
+// Share via Email
+function shareViaEmail(text, url) {
+    const subject = 'Check out this amazing review!';
+    const body = `${text}\n\n${url}`;
+    const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+    closeShareDropdown();
+}
+
+// Close share dropdown
+function closeShareDropdown() {
+    const dropdown = document.querySelector('.share-dropdown');
+    if (dropdown) {
+        dropdown.remove();
+    }
+}
+
+// Copy to clipboard function
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showNotification('Review text copied to clipboard!', 'success');
+        }).catch(() => {
+            // If clipboard fails, show the text
+            prompt('Copy this text:', text);
+        });
+    } else {
+        // Fallback for older browsers
+        prompt('Copy this text:', text);
+    }
+}
+
+// Show notification function
+function showNotification(message, type = 'info') {
+    // Remove existing notification
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    // Style the notification
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#28a745' : '#17a2b8'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        max-width: 300px;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Load top review from Firebase
+function loadTopReview() {
+    // Check if Firebase is initialized
+    if (!window.FirebaseDB || !window.FirebaseDB.isInitialized) {
+        console.log('Firebase not yet initialized, retrying in 1 second...');
+        setTimeout(loadTopReview, 1000);
+        return;
+    }
+
+    try {
+        const { ref, onValue } = window.FirebaseDB;
+        const reviewsRef = ref(database, 'reviews');
+        
+        onValue(reviewsRef, (snapshot) => {
+            const reviews = snapshot.val();
+            console.log('Reviews loaded:', reviews);
+            displayTopReview(reviews);
+        }, (error) => {
+            console.error('Error loading reviews:', error);
+            // Show fallback message
+            displayTopReview(null);
+        });
+        
+    } catch (error) {
+        console.error('Error in loadTopReview:', error);
+        // Show fallback message
+        displayTopReview(null);
+    }
+}
+
+// Initialize reviews functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Try to load reviews
+    loadTopReview();
+    
+    // Add navigation event listeners
+    document.addEventListener('click', function(e) {
+        if (e.target.id === 'nextReviewBtn') {
+            nextReview();
+        } else if (e.target.id === 'prevReviewBtn') {
+            prevReview();
+        }
+    });
+});
+
+// Make functions globally available
+window.createStarRating = createStarRating;
+window.animateNumber = animateNumber;
+window.formatDate = formatDate;
+window.displayTopReview = displayTopReview;
+window.displayReview = displayReview;
+window.updateReviewCounter = updateReviewCounter;
+window.nextReview = nextReview;
+window.prevReview = prevReview;
+window.updateNavigationButtons = updateNavigationButtons;
+window.shareReview = shareReview;
+window.fallbackShare = fallbackShare;
+window.copyToClipboard = copyToClipboard;
+window.loadTopReview = loadTopReview;
 
