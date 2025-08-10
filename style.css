@@ -2159,7 +2159,7 @@ body {
 .competency-card,
 .testimonial-card,
 .achievement-card {
-    /* Animation removed - keeping empty for future use */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 @keyframes fadeInUp {
@@ -2744,8 +2744,9 @@ body {
         top: 50% !important;
         z-index: 10000;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+
     }
     
     .share-option {
