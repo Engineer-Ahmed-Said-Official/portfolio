@@ -9,7 +9,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="common.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="projects.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    /* Desktop Apps specific styles */
+    .projects-container {
+      margin-top: 2rem;
+    }
+    
+    .project-card {
+      margin-bottom: 2rem;
+    }
+    
+    /* Ensure proper spacing */
+    main {
+      padding-top: 2rem;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .projects-container {
+        gap: 1rem;
+      }
+      
+      .project-card {
+        margin-bottom: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark">
@@ -50,7 +77,7 @@
           <img src="images/desktop-apps/cashier/5.png" alt="Cashier 5">
         </div>
         <p>A desktop application designed to manage sales, inventory, and receipts for retail shops efficiently.</p>
-        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
       <!-- Fridges Project -->
       <div class="project-card">
@@ -68,7 +95,7 @@
           <img src="images/desktop-apps/coller/10.png" alt="Coller 10">
         </div>
         <p>System for monitoring and managing commercial refrigeration units, including temperature tracking and alerts.</p>
-        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
       <!-- Playstation Project -->
       <div class="project-card">
@@ -84,7 +111,7 @@
           <img src="images/desktop-apps/playstation/8.png" alt="Playstation 8">
         </div>
         <p>Desktop solution for PlayStation cafes to handle bookings, time tracking, and customer management.</p>
-        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
       <!-- Restaurant POS Project -->
       <div class="project-card">
@@ -103,7 +130,7 @@
           <img src="images/desktop-apps/restaurant-pos/11.png" alt="Restaurant POS 11">
         </div>
         <p>Point of Sale system tailored for restaurants, featuring order management, billing, and reporting tools.</p>
-        <a class="whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
       </div>
     </div>
   </main>
@@ -117,13 +144,108 @@
   <script src="script.js"></script>
   <script src="navbar.js"></script>
   <script src="common.js"></script>
+  <script>
+    // Desktop Apps specific JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize theme toggle if function exists
+      if (typeof initThemeToggle === 'function') {
+        initThemeToggle();
+      }
+      
+      // Add click event to project images for enlargement
+      document.querySelectorAll('.project-images img').forEach(img => {
+        img.addEventListener('click', function() {
+          showPopupImages(this.parentElement.querySelectorAll('img'), 
+                         Array.from(this.parentElement.querySelectorAll('img')).indexOf(this));
+        });
+      });
+      
+      // Initialize scroll animations if function exists
+      if (typeof initScrollAnimations === 'function') {
+        initScrollAnimations();
+      }
+      
+      // Add fade-in animation to project cards
+      document.querySelectorAll('.project-card').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+    
+    // Function to show popup images
+    function showPopupImages(images, startIdx = 0) {
+      const modal = document.getElementById('imgModal');
+      const modalImg = document.getElementById('imgModalImg');
+      const modalTitle = document.getElementById('imgModalTitle');
+      const prevBtn = document.getElementById('imgModalPrev');
+      const nextBtn = document.getElementById('imgModalNext');
+      
+      if (!modal || !modalImg) return;
+      
+      let currentIdx = startIdx;
+      
+      function showImage(idx) {
+        if (idx >= 0 && idx < images.length) {
+          modalImg.src = images[idx].src;
+          modalImg.alt = images[idx].alt;
+          modalTitle.textContent = images[idx].alt;
+          currentIdx = idx;
+          
+          // Update navigation buttons state
+          prevBtn.style.display = idx === 0 ? 'none' : 'block';
+          nextBtn.style.display = idx === images.length - 1 ? 'none' : 'block';
+        }
+      }
+      
+      // Show first image
+      showImage(currentIdx);
+      
+      // Event listeners for navigation
+      prevBtn.onclick = () => showImage(currentIdx - 1);
+      nextBtn.onclick = () => showImage(currentIdx + 1);
+      
+      // Close modal
+      document.querySelector('.img-modal-close').onclick = () => {
+        modal.style.display = 'none';
+      };
+      
+      // Close modal when clicking outside
+      modal.onclick = (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      };
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (modal.style.display === 'block') {
+          if (e.key === 'Escape') {
+            modal.style.display = 'none';
+          } else if (e.key === 'ArrowLeft') {
+            showImage(currentIdx - 1);
+          } else if (e.key === 'ArrowRight') {
+            showImage(currentIdx + 1);
+          }
+        }
+      });
+      
+      // Show modal
+      modal.style.display = 'block';
+    }
+  </script>
   <!-- Popup for enlarged images -->
   <div id="imgModal" class="img-modal" style="display:none;">
     <div class="img-modal-content">
       <span class="img-modal-close">&times;</span>
-      <button class="img-modal-arrow" id="imgModalPrev" type="button">&#8592;</button>
+      <button class="img-modal-arrow" id="imgModalPrev" type="button"></button>
       <img id="imgModalImg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Project Image">
-      <button class="img-modal-arrow" id="imgModalNext" type="button">&#8594;</button>
+      <button class="img-modal-arrow" id="imgModalNext" type="button"></button>
       <div class="img-modal-info">
         <h3 id="imgModalTitle">Project Title</h3>
         <p id="imgModalDesc"></p>

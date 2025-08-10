@@ -443,33 +443,9 @@ footer::before {
     gap: 20px;
 }
 
-.project-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px #0001;
-    padding: 24px 20px 32px 20px;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: box-shadow 0.2s;
-}
+/* Project cards are now defined in projects.css to avoid conflicts */
 
-.project-card:hover {
-    box-shadow: 0 4px 24px #0002;
-}
-
-.project-card h2 {
-    margin: 0 0 16px 0;
-    color: #0078d7;
-    font-size: 1.3em;
-}
-
-.project-card p {
-    color: #444;
-    margin-top: 18px;
-    text-align: center;
-}
+/* Image Modal Styles moved to projects.css to avoid conflicts */
 
 .project-tech-stack {
     display: flex;
@@ -1968,9 +1944,7 @@ body {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    .project-card {
-        padding: 1.5rem;
-    }
+    /* Project card responsive styles are now in projects.css */
 
     .contact-form {
         margin-top: 2rem;
