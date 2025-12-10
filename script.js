@@ -1272,18 +1272,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2. Scroll to Top Button
+    // 2. Scroll to Top Button - Robust Logic
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
+        const toggleScrollBtn = () => {
+            // Cross-browser scroll position detection
+            const scrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            if (scrollY > 300) {
                 scrollTopBtn.classList.add('visible');
             } else {
                 scrollTopBtn.classList.remove('visible');
             }
-        });
+        };
 
-        scrollTopBtn.addEventListener('click', () => {
+        window.addEventListener('scroll', toggleScrollBtn);
+        window.addEventListener('resize', toggleScrollBtn); // Re-check on resize
+        toggleScrollBtn(); // Initial check
+
+        scrollTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'

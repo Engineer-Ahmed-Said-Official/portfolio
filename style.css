@@ -3273,6 +3273,7 @@ body.fade-out {
         right: 20px;
     }
 }
+
 /* =========================================
    1. Cinematic Preloader
    ========================================= */
@@ -3321,14 +3322,30 @@ body.fade-out {
 }
 
 @keyframes loadProgress {
-    0% { width: 0%; }
-    100% { width: 100%; }
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* =========================================
@@ -3336,7 +3353,8 @@ body.fade-out {
    ========================================= */
 .navbar {
     transition: all 0.3s ease;
-    background: transparent !important; /* Force transparent initially */
+    background: transparent !important;
+    /* Force transparent initially */
     padding: 20px 0;
 }
 
@@ -3388,7 +3406,8 @@ body.fade-out {
 #scrollTopBtn {
     position: fixed;
     bottom: 30px;
-    right: 90px; /* Left of WhatsApp button */
+    right: 90px;
+    /* Left of WhatsApp button */
     width: 50px;
     height: 50px;
     background: var(--gradient-primary);
@@ -3434,6 +3453,102 @@ body.fade-out {
 }
 
 /* Staggered delay for multiple items */
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-1 {
+    transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+    transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+    transition-delay: 0.3s;
+}
+
+/* Override Navbar Link Color to Orange */
+.navbar-nav .nav-link {
+    color: #ff5733 !important;
+    /* Orange accent */
+    font-weight: 600;
+}
+/* =========================================
+   Mobile Optimization Logic
+   ========================================= */
+@media (max-width: 768px) {
+    /* Navbar text adjustment */
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    /* Reduce spacing around section headers */
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 30px !important;
+    }
+    
+    /* Fix Skill Chart Height Gap */
+    .chart-container {
+        height: 250px !important; /* Force shorter container on mobile */
+        margin-bottom: 20px;
+    }
+    
+    /* Technical Expertise Spacing */
+    .skills-details h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+    }
+    
+    /* Reduce margins globally for sections */
+    .my-5 {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
+
+/* =========================================
+   Fix Constraints for WhatsApp & Icons
+   ========================================= */
+.whatsapp-float {
+    text-decoration: none !important;
+    z-index: 100000 !important; /* Ensure on top of everything */
+    display: flex !important;
+    align-items: center; 
+    justify-content: center;
+}
+.whatsapp-float i {
+    line-height: 0; /* Reset line height for icon centering */
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        bottom: 30px !important; /* Align with scroll button */
+        right: 20px !important;
+    }
+    
+    #scrollTopBtn {
+        right: 80px !important; /* Move next to WhatsApp */
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+}
+
+/* =========================================
+   Fix Typing Effect Color
+   ========================================= */
+.typing-text {
+    color: var(--primary-color) !important;
+}
+.cursor {
+    color: var(--primary-color) !important;
+}
+
+/* Ensure mobile overrides don't break it */
+@media (max-width: 768px) {
+    .typing-text, .cursor {
+        color: var(--primary-color) !important;
+    }
+}
