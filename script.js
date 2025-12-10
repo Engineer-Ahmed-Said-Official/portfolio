@@ -1278,10 +1278,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggleScrollBtn = () => {
             // Cross-browser scroll position detection
             const scrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            if (scrollY > 300) {
+            if (scrollY >= 0) { // Always show
                 scrollTopBtn.classList.add('visible');
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.visibility = 'visible';
             } else {
-                scrollTopBtn.classList.remove('visible');
+                // Never hide
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.visibility = 'visible';
             }
         };
 
