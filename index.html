@@ -1,21 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahmed Said Bashir - Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Chart.js for Skills Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-logo">ASB</div>
+            <div class="loader-progress">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Session Check & Failsafe
+        (function () {
+            var p = document.getElementById('preloader');
+            if (p) {
+                if (sessionStorage.getItem('preloaderShown')) {
+                    p.style.display = 'none'; // Hide immediately
+                } else {
+                    sessionStorage.setItem('preloaderShown', 'true');
+                    window.addEventListener('load', function () {
+                        setTimeout(function () {
+                            p.style.opacity = 0;
+                            setTimeout(function () { p.style.display = 'none'; }, 500);
+                        }, 2000);
+                    });
+                    setTimeout(function () { p.style.display = 'none'; }, 5000);
+                }
+            }
+        })();
+    </script>
+
+    <!-- Scroll Top Button -->
+    <button id="scrollTopBtn" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+    <!-- Particles.js Container -->
+    <div id="particles-js"></div>
+
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">Ahmed Said Bashir</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -27,11 +71,13 @@
                     <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-light theme-toggle" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+                        <button class="btn btn-outline-light theme-toggle" id="themeToggle" type="button"
+                            title="Toggle theme" aria-label="Toggle theme">
                             <i class="fas fa-moon"></i>
                         </button>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="Ahmed_Said_Bashir_CV.pdf" target="_blank">Download CV</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Ahmed_Said_Bashir_CV.pdf" target="_blank">Download
+                            CV</a></li>
                 </ul>
             </div>
         </div>
@@ -42,10 +88,21 @@
         <div class="container hero-content">
             <div class="hero-flex">
                 <div class="hero-text">
-                    <h1>Welcome, I am Ahmed Said Bashir</h1>
-                    <p>I am an AI Manager specializing in Artificial Intelligence, Python, and Java development. My expertise lies in developing intelligent systems and implementing innovative solutions to complex technical challenges.</p>
-                    <div class="learn-more-container">
-                        <a href="#about" class="btn btn-primary learn-more-btn" id="learnMoreBtn">Explore My Professional Journey</a>
+                    <h1>Welcome, I am <br> <span class="typing-text"></span><span class="cursor">|</span></h1>
+                    <p>I am an AI Manager specializing in Artificial Intelligence, Python, and Java development. My
+                        expertise lies in developing intelligent systems and implementing innovative solutions to
+                        complex technical challenges.</p>
+                    <div class="learn-more-container mb-4">
+                        <a href="#about" class="btn btn-primary learn-more-btn" id="learnMoreBtn">Explore My
+                            Professional Journey</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" class="social-icon"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Engineer-Ahmed-Said-Official" target="_blank" class="social-icon"><i
+                                class="fab fa-github"></i></a>
+                        <a href="mailto:ahmedsaid.official999@gmail.com" class="social-icon"><i
+                                class="fas fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -58,17 +115,56 @@
     <!-- About Section -->
     <section id="about" class="container my-5 fade-in">
         <h2>Professional Overview</h2>
-        <p>As an AI Manager, I lead and oversee artificial intelligence initiatives and development projects. My technical expertise encompasses various programming languages, with particular emphasis on Python and Java, enabling me to drive innovation in AI solutions.</p>
-        <p>Throughout my professional career, I have developed numerous projects, including sophisticated AI-based systems such as a Face Detection application utilizing Java and computer vision libraries including OpenCV. My dedication to artificial intelligence has enabled me to explore advanced concepts in machine learning, data processing, and automation technologies.</p>
-        <p>My professional objective is to contribute to the advancement of AI and software development through innovative solutions and technical expertise. I welcome opportunities to collaborate on challenging projects and create impactful technological solutions.</p>
+        <p>As an AI Manager, I lead and oversee artificial intelligence initiatives and development projects. My
+            technical expertise encompasses various programming languages, with particular emphasis on Python and Java,
+            enabling me to drive innovation in AI solutions.</p>
+        <p>Throughout my professional career, I have developed numerous projects, including sophisticated AI-based
+            systems such as a Face Detection application utilizing Java and computer vision libraries including OpenCV.
+            My dedication to artificial intelligence has enabled me to explore advanced concepts in machine learning,
+            data processing, and automation technologies.</p>
+        <p>My professional objective is to contribute to the advancement of AI and software development through
+            innovative solutions and technical expertise. I welcome opportunities to collaborate on challenging projects
+            and create impactful technological solutions.</p>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="container my-5 fade-in">
+        <h2 class="text-center mb-5">What I Do</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center p-4 h-100">
+                    <i class="fas fa-brain fa-3x mb-3 text-primary"></i>
+                    <h3>AI Solutions</h3>
+                    <p>Developing intelligent systems, machine learning models, and automation tools to solve complex
+                        problems.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center p-4 h-100">
+                    <i class="fas fa-desktop fa-3x mb-3 text-primary"></i>
+                    <h3>Desktop Applications</h3>
+                    <p>Building robust desktop applications using Java, Python, and modern frameworks for various
+                        business needs.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center p-4 h-100">
+                    <i class="fas fa-code fa-3x mb-3 text-primary"></i>
+                    <h3>Software Development</h3>
+                    <p>Full-cycle software development, from requirement analysis to deployment and maintenance.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Skills Visualization Section -->
     <section id="skills-visualization" class="container my-5 fade-in">
         <h2 class="text-center mb-5">Skills Overview</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <canvas id="skillsChart"></canvas>
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="chart-container" style="position: relative; height:400px; width:100%">
+                    <canvas id="skillsChart"></canvas>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="skills-details">
@@ -98,21 +194,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="skill-category">
-                        <h4>Web Development</h4>
-                        <div class="skill-items">
-                            <div class="skill-item" data-language="html">
-                                <i class="fab fa-html5"></i>
-                                <span>HTML5</span>
-                                <progress class="progress-bar" value="85" max="100"></progress>
-                            </div>
-                            <div class="skill-item" data-language="css">
-                                <i class="fab fa-css3-alt"></i>
-                                <span>CSS3</span>
-                                <progress class="progress-bar" value="80" max="100"></progress>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -135,7 +216,8 @@
                 <div class="timeline-content">
                     <h3>August 2025</h3>
                     <h4>Interim CTO at Parot</h4>
-                    <p>Appointed as Interim Chief Technology Officer, leading technology strategy and development initiatives at Parot.</p>
+                    <p>Appointed as Interim Chief Technology Officer, leading technology strategy and development
+                        initiatives at Parot.</p>
                 </div>
             </div>
             <div class="timeline-item">
@@ -176,72 +258,6 @@
                     <h3>2018</h3>
                     <h4>Computer Engineering</h4>
                     <p>Started Computer Engineering studies at Pharos University.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="container my-5 fade-in">
-        <h2>My Skills</h2>
-        <div class="row text-center">
-            <div class="col-md-2 skill-item" data-language="html"><i class="fab fa-html5"></i><p>HTML</p></div>
-            <div class="col-md-2 skill-item" data-language="css"><i class="fab fa-css3-alt"></i><p>CSS</p></div>
-            <div class="col-md-2 skill-item" data-language="javascript"><i class="fab fa-js"></i><p>JavaScript</p></div>
-            <div class="col-md-2 skill-item" data-language="nodejs"><i class="fab fa-node-js"></i><p>Node.js</p></div>
-            <div class="col-md-2 skill-item" data-language="java"><i class="fab fa-java"></i><p>Java</p></div>
-            <div class="col-md-2 skill-item" data-language="python"><i class="fab fa-python"></i><p>Python</p></div>
-        </div>
-    </section>
-
-    <!-- Skills Progress Section -->
-    <section id="skills-progress" class="container my-5 fade-in">
-        <h2>Skill Proficiency</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="skill-progress-item">
-                    <div class="d-flex justify-content-between">
-                        <span>Python</span>
-                        <span>95%</span>
-                    </div>
-                    <progress class="progress-bar" value="95" max="100"></progress>
-                </div>
-                <div class="skill-progress-item">
-                    <div class="d-flex justify-content-between">
-                        <span>Java</span>
-                        <span>85%</span>
-                    </div>
-                    <progress class="progress-bar" value="85" max="100"></progress>
-                </div>
-                <div class="skill-progress-item">
-                    <div class="d-flex justify-content-between">
-                        <span>Machine Learning</span>
-                        <span>90%</span>
-                    </div>
-                    <progress class="progress-bar" value="90" max="100"></progress>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="skill-progress-item">
-                    <div class="d-flex justify-content-between">
-                        <span>Web Development</span>
-                        <span>85%</span>
-                    </div>
-                    <progress class="progress-bar" value="85" max="100"></progress>
-                </div>
-                <div class="skill-progress-item">
-                    <div class="d-flex justify-content-between">
-                        <span>Computer Vision</span>
-                        <span>85%</span>
-                    </div>
-                    <progress class="progress-bar" value="85" max="100"></progress>
-                </div>
-                <div class="skill-progress-item">
-                    <div class="d-flex justify-content-between">
-                        <span>Problem Solving</span>
-                        <span>90%</span>
-                    </div>
-                    <progress class="progress-bar" value="90" max="100"></progress>
                 </div>
             </div>
         </div>
@@ -342,12 +358,14 @@
 
         <!-- Reviews Navigation -->
         <div class="reviews-navigation" id="reviewsNavigation">
-            <button type="button" class="nav-btn" id="prevReviewBtn" title="Previous Review" aria-label="Previous Review" onclick="prevReview()">
+            <button type="button" class="nav-btn" id="prevReviewBtn" title="Previous Review"
+                aria-label="Previous Review" onclick="prevReview()">
                 <i class="fas fa-chevron-left"></i>
                 <span class="sr-only">Previous Review</span>
             </button>
             <span id="reviewCounter" class="review-counter">1 of 1</span>
-            <button type="button" class="nav-btn" id="nextReviewBtn" title="Next Review" aria-label="Next Review" onclick="nextReview()">
+            <button type="button" class="nav-btn" id="nextReviewBtn" title="Next Review" aria-label="Next Review"
+                onclick="nextReview()">
                 <i class="fas fa-chevron-right"></i>
                 <span class="sr-only">Next Review</span>
             </button>
@@ -380,8 +398,22 @@
     </section>
 
     <footer>
-        <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
+        <div class="container text-center">
+            <div class="social-links-footer mb-3">
+                <a href="#" target="_blank" class="social-icon-footer"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Engineer-Ahmed-Said-Official" target="_blank" class="social-icon-footer"><i
+                        class="fab fa-github"></i></a>
+                <a href="mailto:ahmedsaid.official999@gmail.com" class="social-icon-footer"><i
+                        class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
+        </div>
     </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/201220338995" class="whatsapp-float" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Code Window -->
     <div class="code-window-overlay"></div>
@@ -404,10 +436,15 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="particles-init.js"></script>
+    <script src="typing.js"></script>
     <script src="script.js"></script>
     <script src="navbar.js"></script>
     <script src="common.js"></script>
     <script src="code-window.js"></script>
     <script src="firebase-config.js"></script>
 </body>
+
 </html>

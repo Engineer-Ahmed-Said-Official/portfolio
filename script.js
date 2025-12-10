@@ -9,12 +9,16 @@ document.querySelectorAll('iframe').forEach(iframe => {
 let isAnimating = false;
 
 // Theme Toggle Functionality
+// Theme Toggle Functionality
 function initThemeToggle() {
     const themeToggle = document.getElementById('themeToggle');
-    const icon = themeToggle.querySelector('i');
-    
+    if (!themeToggle) return; // Guard clause if button missing
+
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme') || 'light';
+
+    // Set initial theme
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
     if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark-theme');
     } else {
@@ -23,10 +27,11 @@ function initThemeToggle() {
     updateThemeIcon(savedTheme === 'dark');
 
     themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.classList.contains('dark-theme');
-        const newTheme = isDark ? 'light' : 'dark';
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
         // Update theme
+        document.documentElement.setAttribute('data-bs-theme', newTheme);
         if (newTheme === 'dark') {
             document.documentElement.classList.add('dark-theme');
         } else {
@@ -37,10 +42,10 @@ function initThemeToggle() {
         // Update icon
         updateThemeIcon(newTheme === 'dark');
 
-        // Force a reflow to ensure the theme change is applied
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // Force reflow
-        document.body.style.display = '';
+        // Refresh particles theme immediately
+        if (typeof updateParticlesTheme === 'function') {
+            updateParticlesTheme(newTheme);
+        }
     });
 }
 
@@ -60,9 +65,9 @@ function handleLearnMoreSection() {
     const learnMoreBtn = document.getElementById('learnMoreBtn');
     if (!learnMoreBtn) return;
 
-    learnMoreBtn.addEventListener('click', function(e) {
+    learnMoreBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        
+
         // Get the about section
         const aboutSection = document.querySelector('#about');
         if (!aboutSection) return;
@@ -96,16 +101,16 @@ function handleLearnMoreSection() {
 function handleOtherAnchorLinks() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (anchor.id !== 'learnMoreBtn') {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
+
                 if (targetElement) {
                     const navbar = document.querySelector('.navbar');
                     const navbarHeight = navbar ? navbar.offsetHeight : 0;
                     const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
-                    
+
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
@@ -117,17 +122,17 @@ function handleOtherAnchorLinks() {
 }
 
 // Initialize all functionality when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     handleLearnMoreSection();
     initThemeToggle();
-    
+
     // Add scroll event listener for fade-in animations
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const fadeElements = document.querySelectorAll('.fade-in');
         fadeElements.forEach(element => {
             const elementTop = element.getBoundingClientRect().top;
             const elementVisible = 150;
-            
+
             if (elementTop < window.innerHeight - elementVisible) {
                 element.classList.add('visible');
             }
@@ -148,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const imgs = Array.from(imagesDiv.querySelectorAll('img'));
         imgs.forEach((img, idx) => {
             img.style.cursor = 'pointer';
-            img.addEventListener('click', function() {
+            img.addEventListener('click', function () {
                 currentImages = imgs.map(i => i.src);
                 currentIndex = idx;
                 modalImg.src = currentImages[currentIndex];
@@ -163,29 +168,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    closeBtn.onclick = function() {
-        modal.style.display = 'none';
-        modalImg.src = '';
-    };
-    prevBtn.onclick = function(e) {
-        e.stopPropagation();
-        if (!currentImages.length) return;
-        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-        modalImg.src = currentImages[currentIndex];
-    };
-    nextBtn.onclick = function(e) {
-        e.stopPropagation();
-        if (!currentImages.length) return;
-        currentIndex = (currentIndex + 1) % currentImages.length;
-        modalImg.src = currentImages[currentIndex];
-    };
-    // Close modal when clicking outside image
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
+    if (closeBtn) {
+        closeBtn.onclick = function () {
             modal.style.display = 'none';
             modalImg.src = '';
-        }
-    });
+        };
+    }
+    if (prevBtn) {
+        prevBtn.onclick = function (e) {
+            e.stopPropagation();
+            if (!currentImages.length) return;
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            modalImg.src = currentImages[currentIndex];
+        };
+    }
+    if (nextBtn) {
+        nextBtn.onclick = function (e) {
+            e.stopPropagation();
+            if (!currentImages.length) return;
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            modalImg.src = currentImages[currentIndex];
+        };
+    }
+    // Close modal when clicking outside image
+    if (modal) {
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                modalImg.src = '';
+            }
+        });
+    }
 });
 
 /* Project Filtering */
@@ -219,10 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeReviewSection() {
     const helpfulButtons = document.querySelectorAll('.helpful-votes button');
     const shareButtons = document.querySelectorAll('.share-buttons button');
-    
+
     // Handle helpful votes
     helpfulButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const voteCount = this.nextElementSibling;
             let count = parseInt(voteCount.textContent);
             voteCount.textContent = count + 1;
@@ -230,17 +243,17 @@ function initializeReviewSection() {
             this.classList.add('voted');
         });
     });
-    
+
     // Handle share buttons
     shareButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const platform = this.getAttribute('title').toLowerCase();
             const reviewText = document.querySelector('.comment-text').textContent;
             const shareUrl = encodeURIComponent(window.location.href);
             const shareText = encodeURIComponent(reviewText);
-            
+
             let shareLink = '';
-            switch(platform) {
+            switch (platform) {
                 case 'share on linkedin':
                     shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
                     break;
@@ -248,7 +261,7 @@ function initializeReviewSection() {
                     shareLink = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
                     break;
             }
-            
+
             if (shareLink) {
                 window.open(shareLink, '_blank', 'width=600,height=400');
             }
@@ -256,14 +269,11 @@ function initializeReviewSection() {
     });
 }
 
-// Firebase configuration and initialization
-
-
 // Update total reviews count and average rating
 function updateReviewStats(reviews) {
     const totalReviewsElement = document.getElementById('totalReviews');
     const averageRatingElement = document.getElementById('averageRating');
-    
+
     if (!reviews || Object.keys(reviews).length === 0) {
         if (totalReviewsElement) totalReviewsElement.textContent = '0';
         if (averageRatingElement) averageRatingElement.textContent = '0.0';
@@ -280,25 +290,37 @@ function updateReviewStats(reviews) {
     if (averageRatingElement) averageRatingElement.textContent = averageRating;
 }
 
+// Function to load reviews - Called by firebase-config.js or manually
+window.loadReviewsData = function () {
+    if (window.FirebaseDB && window.FirebaseDB.isInitialized) {
+        const { database, ref, onValue } = window.FirebaseDB;
+        const reviewsRef = ref(database, 'reviews');
+        onValue(reviewsRef, (snapshot) => {
+            const reviews = snapshot.val();
+            updateReviewStats(reviews);
+            if (typeof displayTopReview === 'function') {
+                displayTopReview(reviews);
+            }
+        });
+    } else {
+        // Retry if not initialized yet
+        setTimeout(window.loadReviewsData, 500);
+    }
+};
+
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeReviewSection();
-    
-    // Load reviews from Firebase and update stats
-    const reviewsRef = ref(database, 'reviews');
-    onValue(reviewsRef, (snapshot) => {
-        const reviews = snapshot.val();
-        updateReviewStats(reviews);
-        displayTopReview(reviews);
-    });
+    // Start trying to load reviews
+    if (window.loadReviewsData) window.loadReviewsData();
 });
 
 // List of projects and their folder names
 const projects = [
-  { key: 'cashier', count: 0 },
-  { key: 'fridges', count: 0 },
-  { key: 'playstation', count: 0 },
-  { key: 'restaurant-pos', count: 0 }
+    { key: 'cashier', count: 0 },
+    { key: 'fridges', count: 0 },
+    { key: 'playstation', count: 0 },
+    { key: 'restaurant-pos', count: 0 }
 ];
 
 // Helper to fetch image count for each project (since JS can't read folders directly, you must set the count manually)
@@ -311,69 +333,69 @@ projects[3].count = 11; // restaurant-pos
 // You MUST update the counts above to match your actual images!
 
 document.addEventListener('DOMContentLoaded', () => {
-  projects.forEach(project => {
-    const carousel = document.querySelector(`.carousel[data-project="${project.key}"]`);
-    if (!carousel || project.count === 0) return;
+    projects.forEach(project => {
+        const carousel = document.querySelector(`.carousel[data-project="${project.key}"]`);
+        if (!carousel || project.count === 0) return;
 
-    let current = 0;
-    const images = [];
-    for (let i = 1; i <= project.count; i++) {
-      const exts = ['png', 'PNG', 'jpg', 'jpeg'];
-      let found = false;
-      for (const ext of exts) {
-        const path = `images/desktop-apps/${project.key}/${i}.${ext}`;
-        const xhr = new XMLHttpRequest();
-        xhr.open('HEAD', path, false);
-        xhr.send();
-        if (xhr.status === 200) {
-          images.push(path);
-          found = true;
-          break;
+        let current = 0;
+        const images = [];
+        for (let i = 1; i <= project.count; i++) {
+            const exts = ['png', 'PNG', 'jpg', 'jpeg'];
+            let found = false;
+            for (const ext of exts) {
+                const path = `images/desktop-apps/${project.key}/${i}.${ext}`;
+                const xhr = new XMLHttpRequest();
+                xhr.open('HEAD', path, false);
+                xhr.send();
+                if (xhr.status === 200) {
+                    images.push(path);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                // If no image found, push a placeholder or skip
+                images.push('https://via.placeholder.com/260x170?text=No+Image');
+            }
         }
-      }
-      if (!found) {
-        // If no image found, push a placeholder or skip
-        images.push('https://via.placeholder.com/260x170?text=No+Image');
-      }
-    }
 
-    // Create image element
-    const img = document.createElement('img');
-    img.src = images[0];
-    carousel.appendChild(img);
+        // Create image element
+        const img = document.createElement('img');
+        img.src = images[0];
+        carousel.appendChild(img);
 
-    // Controls
-    const controls = document.createElement('div');
-    controls.className = 'carousel-controls';
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'carousel-btn';
-    prevBtn.innerHTML = '&#8592;';
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'carousel-btn';
-    nextBtn.innerHTML = '&#8594;';
-    controls.appendChild(prevBtn);
-    controls.appendChild(nextBtn);
-    carousel.appendChild(controls);
+        // Controls
+        const controls = document.createElement('div');
+        controls.className = 'carousel-controls';
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'carousel-btn';
+        prevBtn.innerHTML = '&#8592;';
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'carousel-btn';
+        nextBtn.innerHTML = '&#8594;';
+        controls.appendChild(prevBtn);
+        controls.appendChild(nextBtn);
+        carousel.appendChild(controls);
 
-    function show(idx) {
-      img.style.opacity = 0;
-      setTimeout(() => {
-        img.src = images[idx];
-        img.style.opacity = 1;
-      }, 200);
-    }
+        function show(idx) {
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = images[idx];
+                img.style.opacity = 1;
+            }, 200);
+        }
 
-    prevBtn.onclick = (e) => {
-      e.stopPropagation();
-      current = (current - 1 + images.length) % images.length;
-      show(current);
-    };
-    nextBtn.onclick = (e) => {
-      e.stopPropagation();
-      current = (current + 1) % images.length;
-      show(current);
-    };
-  });
+        prevBtn.onclick = (e) => {
+            e.stopPropagation();
+            current = (current - 1 + images.length) % images.length;
+            show(current);
+        };
+        nextBtn.onclick = (e) => {
+            e.stopPropagation();
+            current = (current + 1) % images.length;
+            show(current);
+        };
+    });
 });
 
 // Popup image viewer for projects
@@ -386,71 +408,80 @@ let popupImages = [];
 let popupIndex = 0;
 
 function showPopupImages(images, startIdx = 0) {
-  popupImages = images;
-  popupIndex = startIdx;
-  popupImg.src = popupImages[popupIndex];
-  popup.style.display = 'flex';
+    if (!popup || !popupImg) return;
+    popupImages = images;
+    popupIndex = startIdx;
+    popupImg.src = popupImages[popupIndex];
+    popup.style.display = 'flex';
 }
 
-closePopup.onclick = function() {
-  popup.style.display = 'none';
-  popupImg.src = '';
-};
-popupPrev.onclick = function() {
-  popupIndex = (popupIndex - 1 + popupImages.length) % popupImages.length;
-  popupImg.src = popupImages[popupIndex];
-};
-popupNext.onclick = function() {
-  popupIndex = (popupIndex + 1) % popupImages.length;
-  popupImg.src = popupImages[popupIndex];
-};
+if (closePopup) {
+    closePopup.onclick = function () {
+        if (popup) popup.style.display = 'none';
+        if (popupImg) popupImg.src = '';
+    };
+}
+if (popupPrev) {
+    popupPrev.onclick = function () {
+        popupIndex = (popupIndex - 1 + popupImages.length) % popupImages.length;
+        if (popupImg) popupImg.src = popupImages[popupIndex];
+    };
+}
+if (popupNext) {
+    popupNext.onclick = function () {
+        popupIndex = (popupIndex + 1) % popupImages.length;
+        if (popupImg) popupImg.src = popupImages[popupIndex];
+    };
+}
 
 // Close popup on background click
-popup.addEventListener('click', function(e) {
-  if (e.target === popup) {
-    popup.style.display = 'none';
-    popupImg.src = '';
-  }
-});
+if (popup) {
+    popup.addEventListener('click', function (e) {
+        if (e.target === popup) {
+            popup.style.display = 'none';
+            if (popupImg) popupImg.src = '';
+        }
+    });
+}
 
 // Prepare images for each project
 const projectImages = {
-  cashier: [],
-  fridges: [],
-  playstation: [],
-  'restaurant-pos': []
+    cashier: [],
+    fridges: [],
+    playstation: [],
+    'restaurant-pos': []
 };
 const exts = ['png', 'PNG', 'jpg', 'jpeg'];
 projects.forEach((project, idx) => {
-  for (let i = 1; i <= project.count; i++) {
-    let found = false;
-    for (const ext of exts) {
-      const path = `images/desktop-apps/${project.key}/${i}.${ext}`;
-      const xhr = new XMLHttpRequest();
-      xhr.open('HEAD', path, false);
-      xhr.send();
-      if (xhr.status === 200) {
-        projectImages[project.key].push(path);
-        found = true;
-        break;
-      }
+    for (let i = 1; i <= project.count; i++) {
+        let found = false;
+        for (const ext of exts) {
+            const path = `images/desktop-apps/${project.key}/${i}.${ext}`;
+            const xhr = new XMLHttpRequest();
+            xhr.open('HEAD', path, false);
+            xhr.send();
+            if (xhr.status === 200) {
+                projectImages[project.key].push(path);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            projectImages[project.key].push('https://via.placeholder.com/600x400?text=No+Image');
+        }
     }
-    if (!found) {
-      projectImages[project.key].push('https://via.placeholder.com/600x400?text=No+Image');
-    }
-  }
 });
 
 // Attach event listeners to all view buttons
 setTimeout(() => {
-  document.querySelectorAll('.view-btn').forEach(btn => {
-    btn.onclick = function() {
-      const key = btn.getAttribute('data-project');
-      if (projectImages[key] && projectImages[key].length > 0) {
-        showPopupImages(projectImages[key], 0);
-      }
-    };
-  });
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.onclick = function () {
+            const key = btn.getAttribute('data-project');
+            if (projectImages[key] && projectImages[key].length > 0) {
+                showPopupImages(projectImages[key], 0);
+            }
+        };
+    });
 }, 200);
 
 // Function to create star rating HTML
@@ -466,26 +497,26 @@ function createStarRating(rating) {
 function animateNumber(element, start, end, duration) {
     const startTime = performance.now();
     const isFloat = end % 1 !== 0;
-    
+
     function updateNumber(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing function for smooth animation
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         const current = start + (end - start) * easeOutQuart;
-        
+
         if (isFloat) {
             element.textContent = current.toFixed(1);
         } else {
             element.textContent = Math.floor(current);
         }
-        
+
         if (progress < 1) {
             requestAnimationFrame(updateNumber);
         }
     }
-    
+
     requestAnimationFrame(updateNumber);
 }
 
@@ -505,7 +536,13 @@ function displayTopReview(reviews) {
     const reviewsStats = document.getElementById('reviewsStats');
     const reviewsNavigation = document.getElementById('reviewsNavigation');
     const shareReviewBtn = document.getElementById('shareReviewBtn');
-    
+
+    // Guard clause: if mandatory elements don't exist, exit safely
+    if (!topReviewCard || !reviewsStats) {
+        // console.log('Top review elements not found on this page'); // Debug
+        return;
+    }
+
     if (!reviews || Object.keys(reviews).length === 0) {
         topReviewCard.innerHTML = `
             <div class="comment-content">
@@ -527,11 +564,11 @@ function displayTopReview(reviews) {
                 </button>
             </div>
         `;
-        
+
         // Hide stats and navigation when no reviews, but keep share button visible
-        reviewsStats.style.display = 'none';
-        reviewsNavigation.style.display = 'none';
-        
+        if (reviewsStats) reviewsStats.style.display = 'none';
+        if (reviewsNavigation) reviewsNavigation.style.display = 'none';
+
         // After setting innerHTML, get the new share button and make it visible
         setTimeout(() => {
             const newShareBtn = document.getElementById('shareReviewBtn');
@@ -553,15 +590,17 @@ function displayTopReview(reviews) {
     const totalReviewsEl = document.getElementById('totalReviews');
     const avgRatingEl = document.getElementById('avgRating');
     const topRatingEl = document.getElementById('topRating');
-    
-    // Animate stats numbers
-    animateNumber(totalReviewsEl, 0, totalReviews, 1000);
-    animateNumber(avgRatingEl, 0, parseFloat(avgRating), 1000);
-    animateNumber(topRatingEl, 0, topRating, 1000);
+
+    // Animate stats numbers if elements exist
+    if (totalReviewsEl && avgRatingEl && topRatingEl) {
+        animateNumber(totalReviewsEl, 0, totalReviews, 1000);
+        animateNumber(avgRatingEl, 0, parseFloat(avgRating), 1000);
+        animateNumber(topRatingEl, 0, topRating, 1000);
+    }
 
     // Show stats with animation
     reviewsStats.style.display = 'flex';
-    
+
     // Add animation classes to stats
     const statItems = reviewsStats.querySelectorAll('.stat-item');
     statItems.forEach((item, index) => {
@@ -586,28 +625,28 @@ function displayTopReview(reviews) {
         window.currentReviewIndex = 0;
 
         // Show navigation if more than one review
-        if (totalReviews > 1) {
+        if (totalReviews > 1 && reviewsNavigation) {
             reviewsNavigation.style.display = 'flex';
-            updateReviewCounter();
-        } else {
+            if (typeof updateReviewCounter === 'function') updateReviewCounter();
+        } else if (reviewsNavigation) {
             reviewsNavigation.style.display = 'none';
         }
 
         // Show share button
-        shareReviewBtn.style.display = 'inline-flex';
+        if (shareReviewBtn) shareReviewBtn.style.display = 'inline-flex';
 
         // Display the review
-        displayReview(topReview);
+        if (typeof displayReview === 'function') displayReview(topReview);
     }
 }
 
 // Function to display a specific review
 function displayReview(review) {
     const topReviewCard = document.getElementById('topReviewCard');
-    
+
     // Add slide out animation first
     topReviewCard.classList.add('review-slide-out');
-    
+
     // Wait for slide out animation to complete, then update content
     setTimeout(() => {
         topReviewCard.innerHTML = `
@@ -634,16 +673,16 @@ function displayReview(review) {
                 </button>
             </div>
         `;
-        
+
         // Remove slide out class and add slide in animation
         topReviewCard.classList.remove('review-slide-out');
         topReviewCard.classList.add('review-slide-in');
-        
+
         // Remove animation class after animation completes
         setTimeout(() => {
             topReviewCard.classList.remove('review-slide-in');
         }, 600);
-        
+
     }, 400); // Original delay values
 }
 
@@ -652,12 +691,12 @@ function updateReviewCounter() {
     const counter = document.getElementById('reviewCounter');
     const currentIndex = window.currentReviewIndex + 1;
     const totalReviews = window.allReviews.length;
-    
+
     // Add pulse animation
     counter.classList.remove('counter-pulse');
     void counter.offsetWidth; // Trigger reflow
     counter.classList.add('counter-pulse');
-    
+
     counter.textContent = `${currentIndex} of ${totalReviews}`;
 }
 
@@ -687,7 +726,7 @@ function prevReview() {
 function updateNavigationButtons() {
     const prevBtn = document.getElementById('prevReviewBtn');
     const nextBtn = document.getElementById('nextReviewBtn');
-    
+
     prevBtn.disabled = window.currentReviewIndex === 0;
     nextBtn.disabled = window.currentReviewIndex === window.allReviews.length - 1;
 }
@@ -696,9 +735,9 @@ function updateNavigationButtons() {
 function shareReview(name, comment, rating) {
     const text = `Check out this amazing review from ${name}: "${comment}" - ${rating}/5 stars!`;
     const url = window.location.href;
-    
+
     console.log('Sharing review:', { name, comment, rating, text, url });
-    
+
     // Show share options dropdown
     showShareOptions(text, url);
 }
@@ -710,7 +749,7 @@ function showShareOptions(text, url) {
     if (existingDropdown) {
         existingDropdown.remove();
     }
-    
+
     // Create dropdown container
     const dropdown = document.createElement('div');
     dropdown.className = 'share-dropdown';
@@ -751,46 +790,46 @@ function showShareOptions(text, url) {
             <span>Email</span>
         </div>
     `;
-    
-            // Position dropdown near the share button
-        const shareBtn = document.getElementById('shareReviewBtn');
-        if (shareBtn) {
-            const rect = shareBtn.getBoundingClientRect();
-            
-            // Check if mobile device
-            const isMobile = window.innerWidth <= 768;
-            if (isMobile) {
-                // Center dropdown on mobile
-                dropdown.style.position = 'fixed';
-                dropdown.style.top = '50%';
-                dropdown.style.left = '50%';
-                dropdown.style.transform = 'translate(-50%, -50%)';
-                dropdown.style.width = '90vw';
-                dropdown.style.maxWidth = '300px';
-                dropdown.style.zIndex = '10000';
-                dropdown.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-                dropdown.style.backdropFilter = 'blur(20px)';
-                dropdown.style.webkitBackdropFilter = 'blur(20px)';
-            } else {
-                // Desktop positioning
-                dropdown.style.position = 'absolute';
-                dropdown.style.top = (rect.bottom + 5) + 'px';
-                dropdown.style.left = rect.left + 'px';
-                dropdown.style.zIndex = '1000';
-            }
-        
+
+    // Position dropdown near the share button
+    const shareBtn = document.getElementById('shareReviewBtn');
+    if (shareBtn) {
+        const rect = shareBtn.getBoundingClientRect();
+
+        // Check if mobile device
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            // Center dropdown on mobile
+            dropdown.style.position = 'fixed';
+            dropdown.style.top = '50%';
+            dropdown.style.left = '50%';
+            dropdown.style.transform = 'translate(-50%, -50%)';
+            dropdown.style.width = '90vw';
+            dropdown.style.maxWidth = '300px';
+            dropdown.style.zIndex = '10000';
+            dropdown.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            dropdown.style.backdropFilter = 'blur(20px)';
+            dropdown.style.webkitBackdropFilter = 'blur(20px)';
+        } else {
+            // Desktop positioning
+            dropdown.style.position = 'absolute';
+            dropdown.style.top = (rect.bottom + 5) + 'px';
+            dropdown.style.left = rect.left + 'px';
+            dropdown.style.zIndex = '1000';
+        }
+
         // Add to body
         document.body.appendChild(dropdown);
-        
+
         // Add click event listeners to share options
         const shareOptions = dropdown.querySelectorAll('.share-option');
         shareOptions.forEach(option => {
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function () {
                 const action = this.getAttribute('data-action');
                 const text = this.getAttribute('data-text');
                 const url = this.getAttribute('data-url');
-                
-                switch(action) {
+
+                switch (action) {
                     case 'twitter':
                         shareToTwitter(text, url);
                         break;
@@ -813,12 +852,12 @@ function showShareOptions(text, url) {
                         shareViaEmail(text, url);
                         break;
                 }
-                
+
                 // Close dropdown after action
                 dropdown.remove();
             });
         });
-        
+
         // Close dropdown when clicking outside
         setTimeout(() => {
             document.addEventListener('click', function closeDropdown(e) {
@@ -828,9 +867,9 @@ function showShareOptions(text, url) {
                 }
             });
         }, 100);
-        
+
         // Close dropdown on escape key
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 dropdown.remove();
                 document.removeEventListener('keydown', arguments.callee);
@@ -913,7 +952,7 @@ function showNotification(message, type = 'info') {
     if (existingNotification) {
         existingNotification.remove();
     }
-    
+
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
@@ -922,7 +961,7 @@ function showNotification(message, type = 'info') {
             <span>${message}</span>
         </div>
     `;
-    
+
     // Style the notification
     notification.style.cssText = `
         position: fixed;
@@ -937,9 +976,9 @@ function showNotification(message, type = 'info') {
         animation: slideInRight 0.3s ease-out;
         max-width: 300px;
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Auto remove after 3 seconds
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
@@ -959,7 +998,7 @@ function loadTopReview() {
     try {
         const { ref, onValue } = window.FirebaseDB;
         const reviewsRef = ref(database, 'reviews');
-        
+
         onValue(reviewsRef, (snapshot) => {
             const reviews = snapshot.val();
             console.log('Reviews loaded:', reviews);
@@ -969,7 +1008,7 @@ function loadTopReview() {
             // Show fallback message
             displayTopReview(null);
         });
-        
+
     } catch (error) {
         console.error('Error in loadTopReview:', error);
         // Show fallback message
@@ -978,12 +1017,15 @@ function loadTopReview() {
 }
 
 // Initialize reviews functionality when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Try to load reviews
     loadTopReview();
-    
+
+    // Initialize Theme Toggle
+    initThemeToggle();
+
     // Add navigation event listeners
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (e.target.id === 'nextReviewBtn') {
             nextReview();
         } else if (e.target.id === 'prevReviewBtn') {
@@ -1006,4 +1048,274 @@ window.shareReview = shareReview;
 window.fallbackShare = fallbackShare;
 window.copyToClipboard = copyToClipboard;
 window.loadTopReview = loadTopReview;
+
+/* =========================================
+   New Enhancements Scripts
+   ========================================= */
+
+// Typing Effect is now handled by typing.js to ensure isolation
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Initialize Skills Chart
+
+    // Initialize Skills Chart
+    const ctx = document.getElementById('skillsChart');
+    if (ctx) {
+        // Check if Chart is defined (library loaded)
+        if (typeof Chart !== 'undefined') {
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Python', 'Java', 'Machine Learning', 'Problem Solving', 'Web Dev', 'Leadership'],
+                    datasets: [{
+                        label: 'Skill Proficiency',
+                        data: [95, 85, 90, 90, 85, 85],
+                        fill: true,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: {
+                                stepSize: 20,
+                                backdropColor: 'transparent' // Hide default backdrop
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+});
+
+/* Scroll Progress Bar */
+window.onscroll = function () {
+    updateProgressBar();
+};
+
+function updateProgressBar() {
+    const scrollProgress = document.getElementById("scroll-progress");
+    if (!scrollProgress) return;
+
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    scrollProgress.style.width = scrolled + "%";
+}
+
+/* Vanilla Tilt Initialization */
+document.addEventListener("DOMContentLoaded", function () {
+    if (typeof VanillaTilt !== 'undefined') {
+        VanillaTilt.init(document.querySelectorAll(".service-card, .project-card, .skill-item, .testimonial-card"), {
+            max: 10,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2,
+            scale: 1.05
+        });
+    }
+});
+
+/* Advanced UI Features */
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Custom Cursor
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // Add hover effect to interactive elements
+    const interactiveElements = 'a, button, input, textarea, .card, .service-card, .project-card, .skill-item';
+
+    // Use event delegation for better performance and dynamic elements
+    document.body.addEventListener('mouseover', (e) => {
+        if (e.target.closest(interactiveElements)) {
+            cursor.classList.add('hover');
+        }
+    });
+
+    document.body.addEventListener('mouseout', (e) => {
+        if (e.target.closest(interactiveElements)) {
+            cursor.classList.remove('hover');
+        }
+    });
+
+    // 2. Page Transitions
+    document.body.classList.remove('fade-out'); // Ensure page is visible on load
+
+    document.querySelectorAll('a').forEach(link => {
+        // Filter external links and anchors
+        if (link.hostname === window.location.hostname && !link.hash && link.target !== '_blank') {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = link.href;
+                document.body.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 500);
+            });
+        }
+    });
+
+    // handle back/forward navigation
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            document.body.classList.remove('fade-out');
+        }
+    });
+
+    // 3. Theme Sync for Particles
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'data-bs-theme') {
+                const theme = document.documentElement.getAttribute('data-bs-theme');
+                updateParticlesTheme(theme);
+            }
+        });
+    });
+    observer.observe(document.documentElement, { attributes: true });
+
+});
+
+function updateParticlesTheme(theme) {
+    if (window.pJSDom && window.pJSDom[0]) {
+        const pJS = window.pJSDom[0].pJS;
+        const color = theme === 'dark' ? '#ffffff' : '#007bff'; // White for Dark, Blue for Light
+
+        pJS.particles.color.value = color;
+        pJS.particles.line_linked.color = color;
+
+        // Refresh particles
+        if (pJS.fn && pJS.fn.particlesRefresh) {
+            pJS.fn.particlesRefresh();
+        }
+    }
+}
+
+/* Contact Form Simulation */
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                alert('Thank you! Your message has been sent successfully.');
+                contactForm.reset();
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }, 1500);
+        });
+    }
+});
+
+/* =========================================
+   Advanced UI Logic
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Cinematic Preloader - Robust Logic
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        const hidePreloader = () => {
+            preloader.style.opacity = '0';
+            preloader.style.visibility = 'hidden';
+            // Fully remove after animation
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 600);
+        };
+
+        // Primary: Hide on window load
+        window.addEventListener('load', () => {
+            setTimeout(hidePreloader, 1000); // 1s delay for branding
+        });
+
+        // Safety Fallback: Hide after 4 seconds (worst case)
+        setTimeout(hidePreloader, 4000);
+
+        // Immediate check (if already loaded)
+        if (document.readyState === 'complete') {
+            setTimeout(hidePreloader, 1000);
+        }
+    }
+
+    // 2. Scroll to Top Button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // 3. Navbar Glass Effect
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // 4. Scroll Reveal Animations
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+});
 

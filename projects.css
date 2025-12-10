@@ -31,7 +31,7 @@ body {
 }
 
 /* Dark Theme Variables */
-html.dark-theme {
+[data-bs-theme="dark"] {
     --gradient-primary: linear-gradient(135deg, #0d6efd 0%, #00bcd4 100%);
     --gradient-accent: linear-gradient(45deg, #ff8c33, #ff5733);
     --gradient-card: var(--gradient-dark-card);
@@ -230,6 +230,7 @@ html.dark-theme {
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
     }
@@ -253,6 +254,7 @@ html.dark-theme {
         opacity: 0;
         transform: scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -391,6 +393,7 @@ h1::after {
         -webkit-backdrop-filter: blur(0px);
         backdrop-filter: blur(0px);
     }
+
     to {
         opacity: 1;
         -webkit-backdrop-filter: blur(20px);
@@ -562,17 +565,17 @@ h1::after {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
     }
-    
+
     .project-images img {
         height: 320px;
         min-height: 320px;
         max-height: 320px;
     }
-    
+
     .project-card {
         padding: 2.5rem;
     }
-    
+
     .project-card h2 {
         font-size: 2rem;
     }
@@ -584,13 +587,13 @@ h1::after {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 2.5rem;
     }
-    
+
     .project-images img {
         height: 350px;
         min-height: 350px;
         max-height: 350px;
     }
-    
+
     .project-card {
         padding: 3rem;
     }
@@ -602,7 +605,7 @@ h1::after {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 1.2rem;
     }
-    
+
     .project-images img {
         height: 260px;
         min-height: 260px;
@@ -615,7 +618,7 @@ h1::after {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1.1rem;
     }
-    
+
     .project-images img {
         height: 240px;
         min-height: 240px;
@@ -628,46 +631,46 @@ h1::after {
         padding: 1rem;
         margin-bottom: 1rem;
     }
-    
+
     .project-card h2 {
         font-size: 1.3rem;
         margin-bottom: 0.8rem;
     }
-    
+
     .project-card p {
         font-size: 1rem;
         margin-bottom: 1rem;
         line-height: 1.5;
     }
-    
+
     .project-images {
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
         gap: 0.8rem;
         margin: 1rem 0;
     }
-    
+
     .project-images img {
         height: 180px;
         min-height: 180px;
         max-height: 180px;
     }
-    
+
     h1 {
         font-size: 2rem;
         margin-bottom: 1.5rem;
     }
-    
+
     .whatsapp-btn {
         padding: 10px 20px;
         font-size: 1rem;
     }
-    
+
     .img-modal-content {
         width: 98%;
         height: 98%;
         padding: 15px;
     }
-    
+
     .img-modal-close {
         top: 15px;
         right: 20px;
@@ -675,36 +678,36 @@ h1::after {
         width: 40px;
         height: 40px;
     }
-    
+
     .img-modal-arrow {
         padding: 15px 10px;
         font-size: 20px;
         min-width: 45px;
         height: 45px;
     }
-    
+
     #imgModalPrev {
         left: 15px;
     }
-    
+
     #imgModalNext {
         right: 15px;
     }
-    
+
     #imgModalImg {
         max-width: 95%;
         max-height: 70%;
     }
-    
+
     .img-modal-info {
         padding: 15px;
         max-width: 90%;
     }
-    
+
     .img-modal-info h3 {
         font-size: 1.3rem;
     }
-    
+
     .img-counter {
         left: 15px;
         top: 15px;
@@ -716,35 +719,35 @@ h1::after {
         padding: 0.8rem;
         margin-bottom: 0.8rem;
     }
-    
+
     .project-card h2 {
         font-size: 1.2rem;
         margin-bottom: 0.6rem;
     }
-    
+
     .project-card p {
         font-size: 0.9rem;
         margin-bottom: 0.8rem;
         line-height: 1.4;
     }
-    
+
     .project-images {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 0.6rem;
         margin: 0.8rem 0;
     }
-    
+
     .project-images img {
         height: 160px;
         min-height: 160px;
         max-height: 160px;
     }
-    
+
     h1 {
         font-size: 1.8rem;
         margin-bottom: 1rem;
     }
-    
+
     .whatsapp-btn {
         padding: 8px 16px;
         font-size: 0.9rem;
@@ -756,35 +759,35 @@ h1::after {
         padding: 0.6rem;
         margin-bottom: 0.6rem;
     }
-    
+
     .project-card h2 {
         font-size: 1.1rem;
         margin-bottom: 0.5rem;
     }
-    
+
     .project-card p {
         font-size: 0.85rem;
         margin-bottom: 0.6rem;
         line-height: 1.3;
     }
-    
+
     .project-images {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
         margin: 0.6rem 0;
     }
-    
+
     .project-images img {
         height: 140px;
         min-height: 140px;
         max-height: 140px;
     }
-    
+
     h1 {
         font-size: 1.6rem;
         margin-bottom: 0.8rem;
     }
-    
+
     .whatsapp-btn {
         padding: 6px 12px;
         font-size: 0.85rem;
@@ -797,40 +800,40 @@ h1::after {
         padding: 0.5rem;
         margin-bottom: 0.5rem;
     }
-    
+
     .project-card h2 {
         font-size: 1rem;
         margin-bottom: 0.4rem;
     }
-    
+
     .project-card p {
         font-size: 0.8rem;
         margin-bottom: 0.5rem;
         line-height: 1.2;
     }
-    
+
     .project-images {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.4rem;
         margin: 0.5rem 0;
     }
-    
+
     .project-images img {
         height: 120px;
         min-height: 120px;
         max-height: 120px;
     }
-    
+
     h1 {
         font-size: 1.4rem;
         margin-bottom: 0.6rem;
     }
-    
+
     .whatsapp-btn {
         padding: 5px 10px;
         font-size: 0.8rem;
     }
-    
+
     .img-modal-arrow {
         min-width: 65px;
         height: 65px;
@@ -839,15 +842,15 @@ h1::after {
         /* Even larger for small screens */
         border-width: 3px;
     }
-    
+
     #imgModalPrev {
         left: 15px;
     }
-    
+
     #imgModalNext {
         right: 15px;
     }
-    
+
     #imgModalImg {
         max-width: 92%;
         max-height: 60%;
@@ -907,18 +910,18 @@ footer {
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         border-color: transparent;
     }
-    
+
     .project-images img:active {
         transform: scale(0.98);
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
-    
+
     .project-card:hover {
         transform: none;
         box-shadow: var(--shadow-light);
         background: var(--gradient-card);
     }
-    
+
     .project-card:active {
         transform: scale(0.98);
     }

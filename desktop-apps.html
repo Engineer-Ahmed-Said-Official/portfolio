@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,51 +17,61 @@
     .projects-container {
       margin-top: 2rem;
     }
-    
+
     .project-card {
       margin-bottom: 2rem;
     }
-    
+
     /* Ensure proper spacing */
     main {
       padding-top: 2rem;
     }
-    
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .projects-container {
         gap: 0.5rem;
       }
-      
+
       .project-card {
         margin-bottom: 0.8rem;
       }
-      
+
       main {
         padding-top: 1rem;
       }
     }
-    
+
     @media (max-width: 480px) {
       .projects-container {
         gap: 0.3rem;
       }
-      
+
       .project-card {
         margin-bottom: 0.5rem;
       }
-      
+
       main {
         padding-top: 0.5rem;
       }
     }
   </style>
 </head>
+
 <body>
+  <!-- Scroll Top Button -->
+  <button id="scrollTopBtn" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+  <!-- Particles.js Container -->
+  <div id="particles-js"></div>
+
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
       <a class="navbar-brand" href="index.html">Ahmed Said Bashir</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -72,7 +83,8 @@
           <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
           <li class="nav-item">
-            <button class="btn btn-outline-light theme-toggle" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+            <button class="btn btn-outline-light theme-toggle" id="themeToggle" type="button" title="Toggle theme"
+              aria-label="Toggle theme">
               <i class="fas fa-moon"></i>
             </button>
           </li>
@@ -95,7 +107,8 @@
           <img src="images/desktop-apps/cashier/5.png" alt="Cashier 5" loading="lazy">
         </div>
         <p>A desktop application designed to manage sales, inventory, and receipts for retail shops efficiently.</p>
-        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on
+          WhatsApp</a>
       </div>
       <!-- Fridges Project -->
       <div class="project-card">
@@ -112,8 +125,10 @@
           <img src="images/desktop-apps/coller/9.png" alt="Coller 9" loading="lazy">
           <img src="images/desktop-apps/coller/10.png" alt="Coller 10" loading="lazy">
         </div>
-        <p>System for monitoring and managing commercial refrigeration units, including temperature tracking and alerts.</p>
-        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <p>System for monitoring and managing commercial refrigeration units, including temperature tracking and alerts.
+        </p>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on
+          WhatsApp</a>
       </div>
       <!-- Playstation Project -->
       <div class="project-card">
@@ -129,7 +144,8 @@
           <img src="images/desktop-apps/playstation/8.png" alt="Playstation 8" loading="lazy">
         </div>
         <p>Desktop solution for PlayStation cafes to handle bookings, time tracking, and customer management.</p>
-        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on
+          WhatsApp</a>
       </div>
       <!-- Restaurant POS Project -->
       <div class="project-card">
@@ -148,7 +164,8 @@
           <img src="images/desktop-apps/restaurant-pos/11.png" alt="Restaurant POS 11" loading="lazy">
         </div>
         <p>Point of Sale system tailored for restaurants, featuring order management, billing, and reporting tools.</p>
-        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on
+          WhatsApp</a>
       </div>
       <!-- Dmashq POS System Project -->
       <div class="project-card">
@@ -167,14 +184,30 @@
           <img src="images/desktop-apps/Dmashq-POS-System/11.png" alt="Dmashq POS 11" loading="lazy">
           <img src="images/desktop-apps/Dmashq-POS-System/12.png" alt="Dmashq POS 12" loading="lazy">
         </div>
-        <p>Advanced Point of Sale system for retail businesses with comprehensive inventory management, sales tracking, and customer relationship features.</p>
-        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on WhatsApp</a>
+        <p>Advanced Point of Sale system for retail businesses with comprehensive inventory management, sales tracking,
+          and customer relationship features.</p>
+        <a class="btn whatsapp-btn" href="https://wa.me/201220338995" target="_blank" rel="noopener">Contact on
+          WhatsApp</a>
       </div>
     </div>
   </main>
   <footer>
-    <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
+    <div class="container text-center">
+      <div class="social-links-footer mb-3">
+        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" class="social-icon-footer"><i
+            class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Engineer-Ahmed-Said-Official" target="_blank" class="social-icon-footer"><i
+            class="fab fa-github"></i></a>
+        <a href="mailto:ahmedsaid.official999@gmail.com" class="social-icon-footer"><i class="fas fa-envelope"></i></a>
+      </div>
+      <p>© 2024 Ahmed Said Bashir. All rights reserved.</p>
+    </div>
   </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/201220338995" class="whatsapp-float" target="_blank" rel="noopener">
+    <i class="fab fa-whatsapp"></i>
+  </a>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -184,48 +217,48 @@
   <script src="common.js"></script>
   <script>
     // Desktop Apps specific JavaScript
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       // Initialize theme toggle if function exists
       if (typeof initThemeToggle === 'function') {
         initThemeToggle();
       }
-      
+
       // Add click event to project images for enlargement
       document.querySelectorAll('.project-images img').forEach(img => {
-        img.addEventListener('click', function() {
-          showPopupImages(this.parentElement.querySelectorAll('img'), 
-                         Array.from(this.parentElement.querySelectorAll('img')).indexOf(this));
+        img.addEventListener('click', function () {
+          showPopupImages(this.parentElement.querySelectorAll('img'),
+            Array.from(this.parentElement.querySelectorAll('img')).indexOf(this));
         });
-        
+
         // Enhanced image loading with smooth reveal
-        img.addEventListener('load', function() {
+        img.addEventListener('load', function () {
           this.classList.add('loaded');
         });
-        
+
         // Handle already loaded images
         if (img.complete) {
           img.classList.add('loaded');
         }
       });
-      
+
       // Initialize scroll animations if function exists
       if (typeof initScrollAnimations === 'function') {
         initScrollAnimations();
       }
-      
+
       // Add fade-in animation to project cards
       document.querySelectorAll('.project-card').forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
         card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        
+
         setTimeout(() => {
           card.style.opacity = '1';
           card.style.transform = 'translateY(0)';
         }, index * 200);
       });
     });
-    
+
     // Function to show popup images
     function showPopupImages(images, startIdx = 0) {
       const modal = document.getElementById('imgModal');
@@ -234,50 +267,50 @@
       const prevBtn = document.getElementById('imgModalPrev');
       const nextBtn = document.getElementById('imgModalNext');
       const counter = document.getElementById('imgCounter');
-      
+
       if (!modal || !modalImg) return;
-      
+
       let currentIdx = startIdx;
-      
+
       function showImage(idx) {
         if (idx >= 0 && idx < images.length) {
           modalImg.src = images[idx].src;
           modalImg.alt = images[idx].alt;
           modalTitle.textContent = images[idx].alt;
           currentIdx = idx;
-          
+
           // Update counter
           if (counter) {
             counter.textContent = `${idx + 1} / ${images.length}`;
           }
-          
+
           // Update navigation buttons state
           prevBtn.style.display = idx === 0 ? 'none' : 'block';
           nextBtn.style.display = idx === images.length - 1 ? 'none' : 'block';
         }
       }
-      
+
       // Show first image
       showImage(currentIdx);
-      
+
       // Event listeners for navigation
       prevBtn.onclick = () => showImage(currentIdx - 1);
       nextBtn.onclick = () => showImage(currentIdx + 1);
-      
+
       // Close modal
       document.querySelector('.img-modal-close').onclick = () => {
         modal.style.display = 'none';
       };
-      
+
       // Close modal when clicking outside
       modal.onclick = (e) => {
         if (e.target === modal) {
           modal.style.display = 'none';
         }
       };
-      
+
       // Keyboard navigation
-      document.addEventListener('keydown', function(e) {
+      document.addEventListener('keydown', function (e) {
         if (modal.style.display === 'block') {
           if (e.key === 'Escape') {
             modal.style.display = 'none';
@@ -288,11 +321,63 @@
           }
         }
       });
-      
+
       // Show modal
       modal.style.display = 'block';
     }
   </script>
+  <!-- Isolated Theme Toggle Fix -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleBtn = document.getElementById('themeToggle');
+      if (toggleBtn) {
+        // Initial State Check
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark-theme');
+
+        // Icon Update
+        const icon = toggleBtn.querySelector('i');
+        if (savedTheme === 'dark') {
+          icon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+          icon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        // Click Handler
+        toggleBtn.onclick = function (e) {
+          e.preventDefault();
+          const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+          document.documentElement.setAttribute('data-bs-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+
+          if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark-theme');
+            icon.classList.replace('fa-moon', 'fa-sun');
+          } else {
+            document.documentElement.classList.remove('dark-theme');
+            icon.classList.replace('fa-sun', 'fa-moon');
+          }
+
+          // Update Particles if available
+          if (window.pJSDom && window.pJSDom[0]) {
+            const pJS = window.pJSDom[0].pJS;
+            const color = newTheme === 'dark' ? '#ffffff' : '#007bff';
+            pJS.particles.color.value = color;
+            pJS.particles.line_linked.color = color;
+            if (pJS.fn && pJS.fn.particlesRefresh) pJS.fn.particlesRefresh();
+          }
+        };
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <script src="particles-init.js"></script>
+  <script src="script.js"></script>
   <!-- Popup for enlarged images -->
   <div id="imgModal" class="img-modal" style="display:none;">
     <div class="img-modal-content">
@@ -308,4 +393,5 @@
     </div>
   </div>
 </body>
-</html> 
+
+</html>
