@@ -3300,6 +3300,7 @@ body.fade-out {
     font-weight: 700;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 20px;
     animation: pulse 2s infinite;
@@ -3471,10 +3472,12 @@ body.fade-out {
     /* Orange accent */
     font-weight: 600;
 }
+
 /* =========================================
    Mobile Optimization Logic
    ========================================= */
 @media (max-width: 768px) {
+
     /* Navbar text adjustment */
     .navbar-brand {
         font-size: 1.2rem;
@@ -3485,19 +3488,20 @@ body.fade-out {
         font-size: 2rem;
         margin-bottom: 30px !important;
     }
-    
+
     /* Fix Skill Chart Height Gap */
     .chart-container {
-        height: 250px !important; /* Force shorter container on mobile */
+        height: 250px !important;
+        /* Force shorter container on mobile */
         margin-bottom: 20px;
     }
-    
+
     /* Technical Expertise Spacing */
     .skills-details h3 {
         margin-top: 0;
         font-size: 1.5rem;
     }
-    
+
     /* Reduce margins globally for sections */
     .my-5 {
         margin-top: 2rem !important;
@@ -3510,13 +3514,16 @@ body.fade-out {
    ========================================= */
 .whatsapp-float {
     text-decoration: none !important;
-    z-index: 100000 !important; /* Ensure on top of everything */
+    z-index: 100000 !important;
+    /* Ensure on top of everything */
     display: flex !important;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
 }
+
 .whatsapp-float i {
-    line-height: 0; /* Reset line height for icon centering */
+    line-height: 0;
+    /* Reset line height for icon centering */
 }
 
 @media (max-width: 768px) {
@@ -3524,12 +3531,14 @@ body.fade-out {
         width: 50px;
         height: 50px;
         font-size: 24px;
-        bottom: 30px !important; /* Align with scroll button */
+        bottom: 30px !important;
+        /* Align with scroll button */
         right: 20px !important;
     }
-    
+
     #scrollTopBtn {
-        right: 80px !important; /* Move next to WhatsApp */
+        right: 80px !important;
+        /* Move next to WhatsApp */
         width: 45px;
         height: 45px;
         font-size: 1rem;
@@ -3542,13 +3551,16 @@ body.fade-out {
 .typing-text {
     color: var(--primary-color) !important;
 }
+
 .cursor {
     color: var(--primary-color) !important;
 }
 
 /* Ensure mobile overrides don't break it */
 @media (max-width: 768px) {
-    .typing-text, .cursor {
+
+    .typing-text,
+    .cursor {
         color: var(--primary-color) !important;
     }
 }
@@ -3557,17 +3569,18 @@ body.fade-out {
    Mobile Gap Fixes (High Priority)
    ========================================= */
 @media (max-width: 768px) {
+
     /* Force reduce gap below "Skills Overview" title */
     #skills-visualization h2.mb-5 {
-        margin-bottom: 10px !important; 
+        margin-bottom: 10px !important;
         padding-bottom: 0 !important;
     }
-    
+
     /* Ensure no extra padding on the row */
     #skills-visualization .row {
         margin-top: 0 !important;
     }
-    
+
     /* further reduce chart height if needed */
     .chart-container {
         margin-top: 0 !important;
@@ -3578,11 +3591,14 @@ body.fade-out {
    Fix Scroll Top Button Visibility
    ========================================= */
 #scrollTopBtn {
-    display: flex !important; /* Ensure it's not hidden by reset */
-    z-index: 100002 !important; /* Higher than WhatsApp */
+    display: flex !important;
+    /* Ensure it's not hidden by reset */
+    z-index: 100002 !important;
+    /* Higher than WhatsApp */
     align-items: center;
     justify-content: center;
 }
+
 #scrollTopBtn i {
     line-height: 0;
 }
@@ -3592,7 +3608,8 @@ body.fade-out {
    ========================================= */
 #scrollTopBtn {
     left: 30px !important;
-    right: auto !important; /* Unset right */
+    right: auto !important;
+    /* Unset right */
     bottom: 30px !important;
     z-index: 100002 !important;
 }
@@ -3612,7 +3629,8 @@ body.fade-out {
     #scrollTopBtn {
         left: 20px !important;
         right: auto !important;
-        bottom: 90px !important; /* Higher to avoid browser bars */
+        bottom: 90px !important;
+        /* Higher to avoid browser bars */
         width: 50px;
         height: 50px;
         font-size: 1.5rem;
@@ -3626,5 +3644,6 @@ body.fade-out {
 .chart-container {
     position: relative;
     width: 100%;
-    height: 400px; /* Default Desktop Height */
+    height: 400px;
+    /* Default Desktop Height */
 }
