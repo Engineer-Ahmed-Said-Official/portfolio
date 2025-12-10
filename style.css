@@ -3552,3 +3552,24 @@ body.fade-out {
         color: var(--primary-color) !important;
     }
 }
+
+/* =========================================
+   Mobile Gap Fixes (High Priority)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Force reduce gap below "Skills Overview" title */
+    #skills-visualization h2.mb-5 {
+        margin-bottom: 10px !important; 
+        padding-bottom: 0 !important;
+    }
+    
+    /* Ensure no extra padding on the row */
+    #skills-visualization .row {
+        margin-top: 0 !important;
+    }
+    
+    /* further reduce chart height if needed */
+    .chart-container {
+        margin-top: 0 !important;
+    }
+}
