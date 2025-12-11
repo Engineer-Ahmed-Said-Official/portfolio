@@ -595,12 +595,13 @@ footer p {
 
     .skills-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 15px;
-        padding: 0 15px;
+        gap: 10px;
+        padding: 0 10px;
     }
 
     .skill-item {
-        margin: 0.5rem 0;
+        margin: 0;
+        padding: 1rem;
     }
 
     .skill-item i {
@@ -615,7 +616,7 @@ footer p {
     .contact,
     #skills,
     #skills-progress {
-        padding: 50px 15px;
+        padding: 30px 10px;
     }
 
     .contact form {
@@ -661,10 +662,24 @@ footer p {
         /* Remove left margin in mobile menu */
         margin-top: 10px;
         /* Add some space above the button */
-        z-index: 1001;
-        /* Ensure it's above other content */
-        background-color: rgba(0, 255, 0, 0.3);
-        /* Temporary background for visibility */
+        width: 100%;
+        /* Full width for easier tapping */
+        min-height: 44px;
+        /* Minimum touch target size for mobile */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        pointer-events: auto;
+        /* Ensure touch events work */
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+        /* Visual feedback on tap */
+        touch-action: manipulation;
+        /* Prevent double-tap zoom */
+        position: relative;
+        /* Ensure proper stacking */
+        z-index: auto;
+        /* Reset z-index to prevent interference */
     }
 }
 
@@ -1379,31 +1394,8 @@ body {
     border-color: var(--border-color);
 }
 
-.navbar {
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-}
-
-.navbar-dark .navbar-nav .nav-link {
-    color: var(--text-color);
-}
-
-.navbar-dark .navbar-brand {
-    color: var(--text-color);
-}
-
-/* Theme Toggle Button */
-.theme-toggle {
-    background-color: transparent;
-    border: 2px solid var(--text-color);
-    color: var(--text-color);
-}
-
-.theme-toggle:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-}
+/* Theme Toggle Button is now handled in common.css */
+/* Navbar styles are handled in common.css to avoid conflicts */
 
 /* Project Filter Buttons */
 .filter-btn {
@@ -3570,20 +3562,67 @@ body.fade-out {
    ========================================= */
 @media (max-width: 768px) {
 
+    /* Hide chart on mobile to save space - chart takes too much space */
+    #skills-visualization .col-md-6:first-child {
+        display: none !important;
+    }
+
+    /* Make skills details full width on mobile */
+    #skills-visualization .col-md-6:last-child {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
     /* Force reduce gap below "Skills Overview" title */
-    #skills-visualization h2.mb-5 {
-        margin-bottom: 10px !important;
+    #skills-visualization h2.mb-5,
+    #skills-visualization h2 {
+        margin-bottom: 15px !important;
         padding-bottom: 0 !important;
+        font-size: 1.75rem !important;
     }
 
     /* Ensure no extra padding on the row */
     #skills-visualization .row {
         margin-top: 0 !important;
+        margin-bottom: 0 !important;
     }
 
-    /* further reduce chart height if needed */
+    /* Reduce chart container height dramatically */
     .chart-container {
+        height: 0px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: none !important;
+    }
+
+    /* Reduce section padding */
+    #skills-visualization {
+        padding: 30px 10px !important;
+    }
+
+    /* Reduce skills-details spacing */
+    .skills-details {
+        padding: 10px !important;
+        margin: 0 !important;
+    }
+
+    .skills-details h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 10px !important;
         margin-top: 0 !important;
+    }
+
+    .skill-category {
+        margin-bottom: 15px !important;
+    }
+
+    .skill-category h4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .skill-items {
+        gap: 10px !important;
     }
 }
 

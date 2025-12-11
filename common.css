@@ -12,6 +12,8 @@
     --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
     --progress-bg: rgba(0, 0, 0, 0.1);
     --skill-icon-color: #007bff;
+    /* Navbar text should be dark in light theme */
+    --navbar-text-color: #000000;
 }
 
 /* Dark Theme Variables */
@@ -28,6 +30,8 @@ html.dark-theme {
     --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.4);
     --progress-bg: rgba(255, 255, 255, 0.1);
     --skill-icon-color: #0d6efd;
+    /* Navbar has dark background in dark theme too */
+    --navbar-text-color: #ffffff;
 }
 
 html.dark-theme .skill-item {
@@ -38,7 +42,8 @@ html.dark-theme .skill-item {
 html.dark-theme .card p,
 html.dark-theme .card h2,
 html.dark-theme .card h3 {
-    color: var(--text-color) !important; /* Use the bright text color */
+    color: var(--text-color) !important;
+    /* Use the bright text color */
 }
 
 /* Common Theme Styles */
@@ -49,34 +54,33 @@ body {
     padding-top: 76px;
 }
 
-/* Navbar Styles */
+/* Navbar Styles - Basic structure */
+/* Note: Main navbar styling is in the second navbar section below to avoid conflicts */
 .navbar {
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
     height: 76px;
     box-sizing: border-box;
 }
 
-.navbar-dark .navbar-nav .nav-link {
-    color: var(--text-color);
-    transition: color 0.3s ease;
-}
-
+/* Override Bootstrap's navbar-dark to use navbar text color */
+.navbar-dark .navbar-nav .nav-link,
 .navbar-dark .navbar-brand {
-    color: var(--text-color);
-    transition: color 0.3s ease;
+    color: var(--navbar-text-color) !important;
 }
 
 /* Card and Section Styles */
-.card, .timeline-content, .skill-item, section {
+.card,
+.timeline-content,
+.skill-item,
+section {
     background-color: var(--card-bg);
     border-color: var(--border-color);
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Form Elements */
-input, textarea, select {
+input,
+textarea,
+select {
     background-color: var(--card-bg);
     color: var(--text-color);
     border-color: var(--border-color);
@@ -105,12 +109,20 @@ input, textarea, select {
     border: 2px solid var(--text-color);
     color: var(--text-color);
     transition: all 0.3s ease;
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    touch-action: manipulation;
 }
 
 .theme-toggle:hover {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 /* Footer */
@@ -230,22 +242,22 @@ a:hover {
     --primary-light: #2d3748;
     --accent-color: #6366f1;
     --accent-hover: #818cf8;
-    
+
     /* Text Colors */
     --text-light: #ffffff;
     --text-dark: #1a1f36;
     --text-muted: rgba(255, 255, 255, 0.8);
-    
+
     /* Background Colors */
     --bg-light: #f8fafc;
     --bg-dark: #1a1f36;
     --bg-card: #ffffff;
-    
+
     /* Gradient Colors */
     --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
     --gradient-accent: linear-gradient(45deg, var(--accent-color), var(--accent-hover));
     --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    
+
     /* Shadow Colors */
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -275,7 +287,8 @@ body {
 
 /* Navbar Styles */
 .navbar {
-    background: var(--gradient-primary);
+    /* Use a fixed dark gradient that works in both light and dark themes */
+    background: linear-gradient(135deg, #1a2332 0%, #2c3e50 100%);
     padding: 0.8rem 0;
     position: fixed;
     top: 0;
@@ -300,7 +313,7 @@ body {
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--text-light) !important;
+    color: var(--navbar-text-color) !important;
     transition: all 0.3s ease;
     padding: 0.5rem 0;
     position: relative;
@@ -322,7 +335,7 @@ body {
 }
 
 .nav-link {
-    color: var(--text-light) !important;
+    color: var(--navbar-text-color) !important;
     font-weight: 500;
     padding: 0.5rem 1rem !important;
     margin: 0 0.2rem;
@@ -463,6 +476,7 @@ body {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -539,11 +553,11 @@ main {
     .navbar-brand {
         font-size: 1.3rem;
     }
-    
+
     .nav-link {
         padding: 0.5rem !important;
     }
-    
+
     footer {
         padding: 1rem 0;
     }
@@ -681,4 +695,4 @@ section h2::after {
     .container {
         max-width: 1140px;
     }
-} 
+}

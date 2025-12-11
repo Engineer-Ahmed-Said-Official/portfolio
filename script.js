@@ -12,7 +12,10 @@ let isAnimating = false;
 // Theme Toggle Functionality
 function initThemeToggle() {
     const themeToggle = document.getElementById('themeToggle');
-    if (!themeToggle) return; // Guard clause if button missing
+    if (!themeToggle) {
+        console.warn('Theme toggle button not found');
+        return; // Guard clause if button missing
+    }
 
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -26,9 +29,18 @@ function initThemeToggle() {
     }
     updateThemeIcon(savedTheme === 'dark');
 
-    themeToggle.addEventListener('click', () => {
+    // Theme toggle function
+    function toggleTheme(e) {
+        // Prevent default behavior and stop propagation
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
         const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        console.log('Theme toggled from', currentTheme, 'to', newTheme);
 
         // Update theme
         document.documentElement.setAttribute('data-bs-theme', newTheme);
@@ -46,11 +58,26 @@ function initThemeToggle() {
         if (typeof updateParticlesTheme === 'function') {
             updateParticlesTheme(newTheme);
         }
-    });
+    }
+
+    // Add click event listener
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // Add touchstart event listener for better mobile support
+    themeToggle.addEventListener('touchstart', function (e) {
+        // Only handle if it's a simple tap, not a scroll
+        toggleTheme(e);
+    }, { passive: false });
+
+    console.log('Theme toggle initialized successfully');
 }
 
 function updateThemeIcon(isDark) {
     const icon = document.querySelector('#themeToggle i');
+    if (!icon) {
+        console.warn('Theme toggle icon not found');
+        return;
+    }
     if (isDark) {
         icon.classList.remove('fa-moon');
         icon.classList.add('fa-sun');
